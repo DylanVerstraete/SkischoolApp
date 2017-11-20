@@ -42,7 +42,110 @@ h1,h3{
 
 }
 
+.center{
+    text-align: center;
+    width: auto;
+    margin: 0 auto;
+  }
 
+.page-title{
+    color:var(--color-title-gray);
+    text-transform: uppercase;
+    margin-bottom: 1em;
+}
+
+.action-row{
+    margin-bottom:2em;
+}
+.action-row .action-button{
+    float: right;
+    color: var(--color-text-gray);
+}
+
+.action-row .action-button:hover{
+    color:var(--color-light-gray);
+    transition: .2s ease-in-out;
+}
+
+.action-right{
+    float: right;
+ }
+ .action-right .material-icons{
+     font-size: 2rem;
+     color: var(--color-title-gray);
+ }
+ .action-right:hover .material-icons{
+     color: var(--color-mid-gray);
+     transition: .2s ease-in-out;
+ }
+
+ .material-icons{
+    vertical-align: middle;
+    
+}
+
+.card {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    overflow: overlay;
+}
+
+.card.card-form {
+    width: 100%;
+    margin: 0 auto 3em;
+}
+.card-form-title{
+    width:80%;
+    
+}
+
+.card .form-item input {
+    border: none;
+    font-size: 1.5rem;
+    font-weight: 300;
+    padding: .5em;
+    border-radius: 0;
+    outline: none;
+    box-shadow: none;
+}
+
+.card.card-form .form-item:not(:last-child) input {
+    border-bottom: 1px solid var(--color-light-gray);
+}
+ 
+.form-container .btn-lg {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.form-container .btn-lg input:hover {
+    background: #eee;
+    transition: .2s ease-in-out;
+}
+
+.button-login {
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.button-login input {
+    border: none;
+    background: white;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    color: var(--color-mid-blue);
+    font-size: 1rem;
+    padding: 1rem;
+    width: 80%;
+    cursor:pointer;
+}
+
+.button-login input:hover {
+    background: var(--color-light-gray);
+    transition: .2s ease-in-out;
+}
 
 .linktokamp{
 	 display: block;

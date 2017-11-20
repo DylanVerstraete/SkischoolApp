@@ -1,29 +1,28 @@
-
 <div class="container-fluid">
-    <div *ngIf="user">
-        <div class="row action-row">
-          <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-            <a div class="action-button" routerLink="/profiel/edit" routerLinkActive="active">
-              <i routerLink="/profiel/edit" class="material-icons">mode_edit</i>
-            </a>
-          </div>
-      
-        </div>
-        <div class="center">
-          <h3>Profielpagina</h3>
-          <br>
-          <div>
-              <label>Email: {{user.email}}</label>
-          </div>
-          <div>
-              <label>Addres: {{user.address}} {{user.addressnumber}}</label>
-          </div>
-          <div>
-              <label>Stad: {{user.addresscity}}</label>
-          </div>
-          <div>
-              <label>Postcode: {{user.addresspostalcode}}</label>
-          </div>
-        </div>
+  <div *ngIf="user">
+    <h3 class="center page-title">Profielpagina</h3>
+    <div class="row action-row">
+      <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+        <a div class="action-button" routerLink="/profiel/edit" routerLinkActive="active">
+          <i class="material-icons">mode_edit</i>
+        </a>
+      </div>
     </div>
+    <div class="content center">
+      <br>
+      <div>
+        <label>Email: {{user.email}}</label>
+      </div>
+      <div>
+        <label>Addres: {{user.address}} {{user.addressnumber}}</label>
+      </div>
+      <div>
+        <label>Stad: {{user.addresscity}}</label>
+      </div>
+      <div>
+        <label>Postcode: {{user.addresspostalcode}}</label>
+      </div>
+    </div>
+
+  </div>
 </div>

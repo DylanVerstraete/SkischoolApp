@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, FormControl, FormBuilder,ReactiveFormsModule  } from '@angular/forms';
 import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
 import { RouterModule } from '@angular/router';
@@ -16,6 +16,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ProfileComponent } from './profile/profile.component';
 import { CampsComponent } from './camps/camps.component';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ProfileEditComponent } from './profile/profile-edit/profile-edit.compon
     PageNotFoundComponent,
     ProfileComponent,
     CampsComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    RegisterComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -40,6 +42,7 @@ import { ProfileEditComponent } from './profile/profile-edit/profile-edit.compon
     ReactiveFormsModule,
     RouterModule.forRoot([  
       { path: "login", component:LoginComponent },
+      { path: "register", component:RegisterComponent },
       { path: "home", component:HomeComponent},
       { path: "profiel", component:ProfileComponent},
       { path: "profiel/edit", component:ProfileEditComponent},
