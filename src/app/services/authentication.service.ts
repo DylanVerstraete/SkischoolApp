@@ -25,7 +25,6 @@ export class AuthenticationService {
                 // login successful if there's a jwt token in the response
                 let user = response.json();
                 if (user && user.token) {
-                    console.log(user);
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     validCredentials = true;
@@ -37,9 +36,9 @@ export class AuthenticationService {
 
     logout(): Promise<boolean> {
         return new Promise(resolve => {
-        localStorage.removeItem('currentUser');
-        this.userIsloggedIn.emit(false);
-        resolve(true);
+            localStorage.removeItem('currentUser');
+            this.userIsloggedIn.emit(false);
+            resolve(true);
         });
     }
 

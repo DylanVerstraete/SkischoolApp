@@ -1,0 +1,120 @@
+<div *ngIf="user">
+    <h2 class="center page-title">Wijzig profiel</h2>
+    <div class="center container-fluid">
+        <form class="profielForm col-12 col-md-10 col-lg-8 col-xl-6 align-self-center" id="profielForm" name="profielForm" (ngSubmit)="edit()" #profielForm="ngForm">
+                <!--straat-->
+                <div class="form-item">
+                    <label>Straat</label>
+                  <input class="form-control form-border" #addressStreetVar="ngModel" name="address" minlength="4" [(ngModel)]="user.address"
+                    placeholder="Straat">
+          
+                  <div *ngIf="addressStreetVar.errors && (addressStreetVar.dirty || addressStreetVar.touched)" class="alert alert-danger">
+          
+                    <div *ngIf="addressStreetVar.errors.required">
+                      Straatnaam is verplicht
+                    </div>
+                    <div *ngIf="addressStreetVar.errors.minlength">
+                      Straatnaam moet minsten 4 letters lang zijn
+                    </div>
+                  </div>
+                </div>
+          
+                <!--huisnummer-->
+                <div class="form-item">
+                    <label>Huisnummer</label>
+                  <input class="form-control form-border" #addressNumberVar="ngModel" name="addressNumber" minlength="1" [(ngModel)]="user.addressnumber"
+                    placeholder="Huisnummer">
+          
+                  <div *ngIf="addressNumberVar.errors && (addressNumberVar.dirty || addressNumberVar.touched)" class="alert alert-danger">
+          
+                    <div *ngIf="addressNumberVar.errors.required">
+                      Straatnummer is verplicht
+                    </div>
+                    <div *ngIf="addressNumberVar.errors.minlength">
+                      Straatnummer moet minstens 1 cijfer bevatten
+                    </div>
+                    <div *ngIf="addressNumberVar.errors.forbiddenName">
+                      Verboden
+                    </div>
+          
+                  </div>
+          
+                </div>
+          
+                <!--postcode-->
+                <div class="form-item">
+                    <label>Postcode</label>
+                  <input class="form-control form-border" #addressPostalcodeVar="ngModel" name="addressPostalcode" minlength="4" maxlength="4" [(ngModel)]="user.addresspostalcode"
+                    placeholder="Postcode">
+          
+                  <div *ngIf="addressPostalcodeVar.errors && (addressPostalcodeVar.dirty || addressPostalcodeVar.touched)" class="alert alert-danger">
+          
+                    <div *ngIf="addressPostalcodeVar.errors.required">
+                      Postcode is verplicht
+                    </div>
+                    <div *ngIf="addressPostalcodeVar.errors.minlength">
+                      Postcode moet minstens 4 cijfers bevatten
+                    </div>
+                    <div *ngIf="addressPostalcodeVar.errors.forbiddenName">
+                      Verboden
+                    </div>
+          
+                  </div>
+          
+                </div>
+          
+                <!--stad-->
+                <div class="form-item">
+                    <label>Stad</label>
+                  <input class="form-control form-border" #addressCityVar="ngModel" name="addressCity" minlength="4" [(ngModel)]="user.addresscity" placeholder="Stad">
+          
+                  <div *ngIf="addressCityVar.errors && (addressCityVar.dirty || addressCityVar.touched)" class="alert alert-danger">
+          
+                    <div *ngIf="addressCityVar.errors.required">
+                      Stadsnaam is verplicht
+                    </div>
+                    <div *ngIf="addressCityVar.errors.minlength">
+                      Stadsnaam moet minsten 4 letters lang zijn
+                    </div>
+                    <div *ngIf="addressCityVar.errors.forbiddenName">
+                      Verboden
+                    </div>
+          
+                  </div>
+          
+                </div>
+          
+          
+                <br>
+              <h3 class="card-form-title">Telefoonnummer</h3>
+                <!--telefoonnummer-->
+                <div class="form-item">
+                    <label>Telefoonnummer</label>
+                  <input class="form-control form-border" #telephoneNumberVar="ngModel" name="telephoneNumber" minlength="10" maxlength="10" [(ngModel)]="user.telephonenumber"
+                    placeholder="Gsm nummer">
+          
+                  <div *ngIf="telephoneNumberVar.errors && (telephoneNumberVar.dirty || telephoneNumberVar.touched)" class="alert alert-danger">
+          
+                    <div *ngIf="telephoneNumberVar.errors.required">
+                      Gsm nummer is verplicht
+                    </div>
+                    <div *ngIf="telephoneNumberVar.errors.minlength">
+                      Gsm nummer moet minstens 12 cijfers bevatten
+                    </div>
+                    <div *ngIf="telephoneNumberVar.errors.forbiddenName">
+                      Verboden
+                    </div>
+          
+                  </div>
+          
+                </div>
+          
+                <br>
+
+                <button class="btn btn-blue-big btn-primary pull-right" type="submit"  name="profile_edit_submit" value="Wijzig">
+                    Opslaan
+                </button>
+
+        </form>
+    </div>
+</div>

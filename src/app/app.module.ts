@@ -10,11 +10,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
 import { RouterModule } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ProfileComponent } from './profile/profile.component';
+import { CampsComponent } from './camps/camps.component';
+import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginComponent,
+    HomeComponent,
+    PageNotFoundComponent,
+    ProfileComponent,
+    CampsComponent,
+    ProfileEditComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -26,8 +38,14 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: "**", redirectTo: "" },
+    RouterModule.forRoot([  
+      { path: "login", component:LoginComponent },
+      { path: "home", component:HomeComponent},
+      { path: "profiel", component:ProfileComponent},
+      { path: "profiel/edit", component:ProfileEditComponent},
+      { path: "kampen", component:CampsComponent},
+      { path: "", component:HomeComponent},
+      { path: "**", component:PageNotFoundComponent},      
     ])
   ],
   providers: [AuthenticationService,UserService],

@@ -33,6 +33,7 @@ require('./server/app/config/passport')(passport);
 // Resolves the Access-Control-Allow-Origin error in the console
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
@@ -69,6 +70,30 @@ function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
   res.status(code || 500).json({"error": message});
 }
+
+app.get("/api/users/:email", function(req, res, next){
+  Users.findOne({email:req.params.email},function(err, user){
+    if(err) next(handleError(res, err.message));
+    res.json(user);
+  })
+});
+
+app.post("/api/users/edit/:email", function(req, res, next){
+  Users.findOne({email: req.body.email},function(err,user){
+    if(err) next(handleError(res, err.message));
+      user.firstname = req.body.firstname;
+      user.lastname = req.body.lastname;
+      user.address = req.body.address;
+      user.addressnumber = req.body.addressnumber;
+      user.addresspostalcode = req.body.addresspostalcode;
+      user.addresscity = req.body.addresscity;
+      user.telephonenumber = req.body.telephonenumber;
+      user.save(function(err){
+        if (err) next(handleError(res, err.message));
+        res.json(user);
+      });
+    });
+});
 
 /*create sample user*/
 app.get('/setup', function(req, res){

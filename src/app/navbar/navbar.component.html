@@ -7,16 +7,25 @@
         <a class="navbar-brand" href="#">Skischool</a>
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home
+                <a class="nav-link"  routerLink="/home" routerLinkActive="active" >Home
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Kampen</a>
+                <a class="nav-link"routerLink="/kampen" routerLinkActive="active">Kampen</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
+            
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item" *ngIf="userIsLoggedIn == false">
+                <a class="nav-link" routerLink="/login" routerLinkActive="active" >Login</a>
             </li>
+            <li class="nav-item" *ngIf="userIsLoggedIn">
+                <a class="nav-link" routerLink="/profiel" routerLinkActive="active" >{{user.email}}</a>
+            </li>
+            <li  class="nav-item" *ngIf="userIsLoggedIn">
+                <a class="nav-link" (click)="logout($event)">Logout</a>
+              </li>
         </ul>
     </div>
 </nav>
