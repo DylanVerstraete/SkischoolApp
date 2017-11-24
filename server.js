@@ -63,8 +63,6 @@ mongodb.MongoClient.connect("mongodb://localhost:27017/skischool", function (err
   });
 });
 
-// CONTACTS API ROUTES BELOW
-
 // Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
@@ -96,26 +94,22 @@ app.post("/api/users/edit/:email", function(req, res, next){
 });
 
 /*create sample user*/
-app.get('/setup', function(req, res){
+app.get('/setup', function(req, res, next){
   var newUser = new Users({
     email: "erik@test.be",
     password: "test"
   });
-
   newUser.save(function(err) {
     if (err) {
-      handleError(res, err.message, "Failed to create user");
-      console.log("new user failed");
+      next(handleError(res, err.message, "Failed to create user"));
     }
-    console.log("new user created");
   });
-
   res.json(newUser);
 });
 
-app.post('/api/signup', function(req, res) {
+app.post('/api/signup', function(req, res, next) {
   if (!req.body.email || !req.body.password) {
-    handleError(res, 'No email in body', 'Password or Email not valid', 400);
+    next(handleError(res, 'No email in body', 'Password or Email not valid', 400));
   } else {
     //create a new user
     var newUser = new Users({
@@ -125,21 +119,20 @@ app.post('/api/signup', function(req, res) {
     // save the user
     newUser.save(function(err) {
       if (err) {
-        handleError(res, "Email bestaat al", "Email already exists.");
+        next(handleError(res, "Email bestaat al", "Email already exists."));
       }
-      console.log("User aangemaakt");
     });
     res.json(newUser);
   }
 });
 
-app.post("/api/login", function(req,res){
+app.post("/api/login", function(req,res, next){
   Users.findOne({
     email: req.body.email
   }, function(err, user) {
     if (err) throw err;
     if (!user) {
-      handleError(res, "User not found", "User doesn't exists", 400);
+      next(handleError(res, "User not found", "User doesn't exists", 400));
     } else {
       // check if password matches
       user.comparePassword(req.body.password, function (err, isMatch) {
@@ -152,7 +145,7 @@ app.post("/api/login", function(req,res){
           });
           console.log("User logged in");
         } else {
-          handleError(res, "Wrong password", "Wrong password", 400);
+          next(handleError(res, "Wrong password", "Wrong password", 400));
         }
       });
     }
