@@ -1,28 +1,35 @@
 <div class="container-fluid">
   <div *ngIf="user">
-    <h3 class="center page-title">Profielpagina</h3>
-    <div class="row action-row">
-      <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+    <h3 class="center page-title">Instellingen</h3>
+
+    <hr class="divider">
+    <div class="content center">
         <a div class="action-button" routerLink="/profiel/edit" routerLinkActive="active">
           <i class="material-icons">mode_edit</i>
         </a>
+      <div>
+        <h4 class="profile-titel">Email adress</h4>
+        <p class="profile-p">{{user.email}}</p>
+      </div>
+      <div>
+          <h4 class="profile-titel">Addres</h4>
+        <p class="profile-p">{{user.address}} {{user.addressnumber}}</p>
+      </div>
+      <div>
+          <h4 class="profile-titel">Stad</h4>
+        <p class="profile-p">{{user.addresscity}}</p>
+      </div>
+      <div>
+          <h4 class="profile-titel">Postcode</h4>
+        <p class="profile-p">{{user.addresspostalcode}}</p>
       </div>
     </div>
-    <div class="content center">
-      <br>
-      <div>
-        <label>Email: {{user.email}}</label>
-      </div>
-      <div>
-        <label>Addres: {{user.address}} {{user.addressnumber}}</label>
-      </div>
-      <div>
-        <label>Stad: {{user.addresscity}}</label>
-      </div>
-      <div>
-        <label>Postcode: {{user.addresspostalcode}}</label>
-      </div>
+    <hr class="divider">
+    <div class="skikaart">
+      <h3>Skikaarten</h3>
+      <p>Skikaarten in je bezit: {{user.skicards.length}}</p>
+      <p>Aantal beurten op je skikaarten: {{numberOfTurns}}</p>
+      <button class="btn btn-info" (click)="buy()">Koop skikaart</button>
     </div>
-
   </div>
 </div>

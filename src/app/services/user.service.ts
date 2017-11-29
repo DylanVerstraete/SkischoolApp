@@ -39,6 +39,10 @@ export class UserService {
         return this.http.get("http://127.0.0.1:5000/api/secret", this.jwt()).map((response: Response) => response.json());
     }
 
+    addSkiCard(user: User){
+        return this.http.post('http://127.0.0.1:5000/api/users/addCard' , user, this.jwt()).map((response: Response) => response.json());
+    }
+
     // private helper methods
 
     private jwt() {

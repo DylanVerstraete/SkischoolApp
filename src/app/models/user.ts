@@ -8,5 +8,10 @@ export class User {
     addresscity: string;
     telephonenumber: string;
     email: string;
+    skicards: SkiCard[];
     constructor(){}
+}
+
+class SkiCard{
+    numberOfTurns: number;
 }

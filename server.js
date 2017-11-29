@@ -15,6 +15,7 @@ var localStorage = require('node-localstorage').localStorage;
 
 var config = require('./server/app/config/config.js');
 var Users = require('./server/app/models/user.js');
+var SkiCard = require('./server/app/models/skicard.js');
 
 var USERS_COLLECTION = "users";
 
@@ -72,25 +73,58 @@ function handleError(res, reason, message, code) {
 app.get("/api/users/:email", function(req, res, next){
   Users.findOne({email:req.params.email},function(err, user){
     if(err) next(handleError(res, err.message));
+    console.log(user);
     res.json(user);
+  }).populate({
+    path:"skicards",
+    model:"SkiCard"
   })
 });
 
 app.post("/api/users/edit/:email", function(req, res, next){
-  Users.findOne({email: req.body.email},function(err,user){
+  console.log(req.body)
+  Users.findOne({email: req.body.email},function(err,user){}).populate({
+    path:"skicards",
+    model:"SkiCard"
+  }).exec(function(err,user){
     if(err) next(handleError(res, err.message));
-      user.firstname = req.body.firstname;
-      user.lastname = req.body.lastname;
-      user.address = req.body.address;
-      user.addressnumber = req.body.addressnumber;
-      user.addresspostalcode = req.body.addresspostalcode;
-      user.addresscity = req.body.addresscity;
-      user.telephonenumber = req.body.telephonenumber;
-      user.save(function(err){
-        if (err) next(handleError(res, err.message));
-        res.json(user);
-      });
+    user.firstname = req.body.firstname;
+    user.lastname = req.body.lastname;
+    user.address = req.body.address;
+    user.addressnumber = req.body.addressnumber;
+    user.addresspostalcode = req.body.addresspostalcode;
+    user.addresscity = req.body.addresscity;
+    user.telephonenumber = req.body.telephonenumber;
+    user.save(function(err){
+      if (err) next(handleError(res, err.message));
+      res.json(user);
     });
+  })
+});
+
+app.post("/api/users/addCard", function(req, res, next){
+  Users.findOne({email: req.body.email},function(err,user){
+    if (err) next(handleError(res, err.message));
+  }).populate({
+    path:"skicards",
+    model:"SkiCard"
+  }).exec(function(err,user){
+    if (err) next(handleError(res, err.message));
+    let skicard = new SkiCard({
+      numberOfTurns: 10
+    });
+    console.log("USER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+user);
+    user.skicards.push(skicard);
+
+    skicard.save(function(err){
+      if (err) next(handleError(res, err.message));
+    });
+
+    user.save(function(err){
+      if (err) next(handleError(res, err.message));
+      res.json(user);
+    });
+  })
 });
 
 /*create sample user*/
