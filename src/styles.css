@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
-body,
+body{
+    background-color:none;
+}
 html {
     width: 100%;
     height: 100%;
@@ -28,6 +30,10 @@ h1,h3{
 .lead {
     font-size: 18px;
     font-weight: 400;
+}
+
+.blue{
+    background:#48A9DD;
 }
 
 .intro-header {

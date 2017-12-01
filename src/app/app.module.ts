@@ -28,7 +28,7 @@ import { RegisterComponent } from './register/register.component';
     ProfileComponent,
     CampsComponent,
     ProfileEditComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

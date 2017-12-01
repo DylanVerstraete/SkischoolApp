@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./login.component.css'],
   encapsulation: ViewEncapsulation.None  
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnDestroy, OnInit {
 
   error: string;
   model: any = {};
@@ -21,12 +21,17 @@ export class LoginComponent implements OnInit {
       private router: Router,private route: ActivatedRoute,) {}
 
   ngOnInit(): void {
+    document.querySelector('body').classList.add('blue');    
     // reset login status
     this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
+
+  ngOnDestroy(): void {
+    document.querySelector('body').classList.remove('blue');
+  } 
 
   private onLoginSuccesFull(){
 
