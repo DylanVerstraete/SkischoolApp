@@ -9,6 +9,7 @@ export class User {
     telephonenumber: string;
     email: string;
     skicards: SkiCard[];
+    member: boolean;
     constructor(){}
 }
 

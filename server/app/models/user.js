@@ -40,7 +40,11 @@ var UserSchema = new Schema({
         type: String,
         required: false
     },
-    skicards: [{type: Schema.ObjectId, ref: "SkiCard"}]
+    skicards: [{type: Schema.ObjectId, ref: "SkiCard"}],
+    member: {
+        type: Boolean,
+        required: true,
+    }
 });
 
 UserSchema.pre('save', function (next) {

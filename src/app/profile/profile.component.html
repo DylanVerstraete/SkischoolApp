@@ -31,5 +31,24 @@
       <p>Aantal beurten op je skikaarten: {{numberOfTurns}}</p>
       <button class="btn btn-info" (click)="buy()">Koop skikaart</button>
     </div>
+    <div *ngIf="!user.member">
+      <hr class="divider">
+      <div class="member">
+        <h3>Wordt lid</h3>
+        <p>Prijs: €55 / jaar</p>
+        <p>Prijs per skikaart van 10 beurten: €110 </p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScG032OHlcx-L1Og0dYB_YRujhBCSGqCqBprlZCnUhFYCn99g/viewform?formkey=dFVDNFVhR3UyUFZDQ3FMWHVqeWVtWWc6MQ" class="btn btn-default">Wordt Lid</a>
+        <button class="btn btn-info" (click)="makeMember()">Wordt lid</button>
+      </div>
+    </div>
+    <div *ngIf="user.member">
+      <hr class="divider">
+      <div class="member">
+        <h3>U bent lid bij ons!</h3>
+        <p>Prijs: €55 / jaar</p>
+        <p>Prijs per skikaart van 10 beurten: €110 </p>
+        <button class="btn btn-danger" (click)="undoMember()">Schrijf jezelf uit</button>
+      </div>
+    </div>
   </div>
 </div>

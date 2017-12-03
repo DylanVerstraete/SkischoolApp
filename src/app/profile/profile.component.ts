@@ -27,13 +27,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(user => {
       this.user = user;
-      console.log(user);
-      this.user.skicards.forEach(elem => {
-        this.numberOfTurns + elem.numberOfTurns;
-        console.log(elem);
-        console.log(this.numberOfTurns);
-        document.getElementById('body').style.background = "none";        
-      })
+      this.calculateTurns();
     });
   }
 
@@ -42,7 +36,23 @@ export class ProfileComponent implements OnInit {
       numberOfTurns: 10
     }
     this.user.skicards.push(skiCard);
-    this.userService.addSkiCard(this.user).subscribe(data => console.log(data));
+    this.userService.addSkiCard(this.user).subscribe(data => this.user = data);
+    this.calculateTurns();
+  }
+
+  calculateTurns(){
+    this.numberOfTurns = 0;
+    this.user.skicards.forEach(elem => {
+      this.numberOfTurns += elem.numberOfTurns;
+    });
+  }
+
+  makeMember(){
+    this.userService.makeMember(this.user).subscribe(data => this.user = data);
+  }
+
+  undoMember(){
+    this.userService.undoMember(this.user).subscribe(data => this.user = data);
   }
 
 }

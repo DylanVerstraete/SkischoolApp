@@ -43,6 +43,14 @@ export class UserService {
         return this.http.post('http://127.0.0.1:5000/api/users/addCard' , user, this.jwt()).map((response: Response) => response.json());
     }
 
+    makeMember(user: User){
+        return this.http.post('http://127.0.0.1:5000/api/add/member' , user, this.jwt()).map((response: Response) => response.json());
+    }
+
+    undoMember(user: User){
+        return this.http.post('http://127.0.0.1:5000/api/delete/member' , user, this.jwt()).map((response: Response) => response.json());        
+    }
+
     // private helper methods
 
     private jwt() {

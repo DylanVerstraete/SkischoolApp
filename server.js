@@ -131,7 +131,8 @@ app.post("/api/users/addCard", function(req, res, next){
 app.get('/setup', function(req, res, next){
   var newUser = new Users({
     email: "erik@test.be",
-    password: "test"
+    password: "test",
+    member: false,
   });
   newUser.save(function(err) {
     if (err) {
@@ -148,7 +149,8 @@ app.post('/api/signup', function(req, res, next) {
     //create a new user
     var newUser = new Users({
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      member: false
     });
     // save the user
     newUser.save(function(err) {
@@ -164,7 +166,7 @@ app.post("/api/login", function(req,res, next){
   Users.findOne({
     email: req.body.email
   }, function(err, user) {
-    if (err) throw err;
+    if (err) next(handleError(res, "User not found", "User doesn't exists", 400));
     if (!user) {
       next(handleError(res, "User not found", "User doesn't exists", 400));
     } else {
@@ -186,6 +188,47 @@ app.post("/api/login", function(req,res, next){
   });
 });
 
+app.post("/api/add/member", function(req, res, next){
+  Users.findOne({
+    email: req.body.email
+  }, function(err, user) {
+    if(err) next(handleError(res, "User not found", "User doesn't exists", 400));
+    if (!user) {
+      next(handleError(res, "User not found", "User doesn't exists", 400));
+    }else{
+
+      user.member = true;
+
+      user.save(function(err) {
+        if (err) {
+          next(handleError(res, err.message, "User is already member"));
+        }
+      });
+      res.json(user);
+    }
+  })
+});
+
+app.post("/api/delete/member", function(req, res, next){
+  Users.findOne({
+    email: req.body.email
+  }, function(err, user) {
+    if(err) next(handleError(res, "User not found", "User doesn't exists", 400));
+    if (!user) {
+      next(handleError(res, "User not found", "User doesn't exists", 400));
+    }else{
+
+      user.member = false;
+
+      user.save(function(err) {
+        if (err) {
+          next(handleError(res, err.message, "User is not a member"));
+        }
+      });
+      res.json(user);
+    }
+  })
+});
 
 //VOORBEELD VOOR JWT AUTHENTICATED ROUTE
 app.get("/api/secret", passport.authenticate('jwt', { session: false }), function(req, res){
