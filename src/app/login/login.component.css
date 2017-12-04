@@ -12,4 +12,7 @@ title{
     margin: 0 auto;
   }
 
+  .alert-danger{
+    margin-bottom: 0;
+  }
  

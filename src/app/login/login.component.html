@@ -6,18 +6,18 @@
                <p class="command-content">Log in</p>
            </div>
        </div>
-   </div>
+</div>
    <div class="container form-container login-overlay">
         <div class="row">
             <form class="loginForm" name="form" (ngSubmit)="f.form.valid" #f="ngForm" xt-form novalidate>
                 <div class="card card-form">
                     <div class="form-item" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
                         <input class="form-control" type="email" name="email" placeholder="Email"[(ngModel)]="model.email" #email="ngModel" xt-validate  required>
-                        <div *ngIf="f.submitted && !password.valid" class="help-block">Email is required</div>
+                        <div *ngIf="f.submitted && !email.valid" class="alert alert-danger">Email is required</div>
                     </div>
                     <div class="form-item" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                         <input class="form-control" type="password" name="password" placeholder="Password" [(ngModel)]="model.password" #password="ngModel" required>
-                        <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+                        <div *ngIf="f.submitted && !password.valid" class="alert alert-danger">Password is required</div>
                       </div>
                 </div>
 

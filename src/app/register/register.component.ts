@@ -31,7 +31,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   register() {
-    console.log("TEST");
+    if(this.registerForm.valid){
+      console.log("TEST");
       this.loading = true;
 
       this.model = {
@@ -46,6 +47,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
       }, error => {
         this.loading = false;
       });
+    }else{
+      console.log("not valid");
+    }
+    
   }
 
   ngOnDestroy(): void {
