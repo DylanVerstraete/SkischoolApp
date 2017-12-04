@@ -70,6 +70,16 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 
+app.get("/api/users/", function(req,res,next){
+  Users.find({}).populate({
+    path:"skicard",
+    mode:"skiCard"
+  }).exec(function(err,users){
+    if(err) next(handleError(res, err.message));
+    res.json(users);
+  })
+})
+
 app.get("/api/users/:email", function(req, res, next){
   Users.findOne({email:req.params.email},function(err, user){
     if(err) next(handleError(res, err.message));

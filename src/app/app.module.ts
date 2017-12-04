@@ -20,6 +20,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AdminComponent } from './admin/admin.component';
 import { AdminAuthGuard } from './auth/admin-auth.guard';
+import { AdminService } from './services/admin.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,7 @@ import { AdminAuthGuard } from './auth/admin-auth.guard';
       { path: "**", component:PageNotFoundComponent},      
     ])
   ],
-  providers: [AuthenticationService,UserService, AuthGuard, AdminAuthGuard],
+  providers: [AuthenticationService, UserService, AuthGuard, AdminAuthGuard, AdminService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
