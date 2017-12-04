@@ -24,6 +24,7 @@ export class LoginComponent implements OnDestroy, OnInit {
       private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    document.querySelector("nav").classList.add('blue'); 
     document.querySelector('body').classList.add('blue');    
     // reset login status
     this.authenticationService.logout();
@@ -38,6 +39,7 @@ export class LoginComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     document.querySelector('body').classList.remove('blue');
+    document.querySelector("nav").classList.remove('blue');     
   } 
 
   private onLoginSuccesFull(){

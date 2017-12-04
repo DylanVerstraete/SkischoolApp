@@ -134,6 +134,7 @@ h1,h3{
     text-align: center;
     margin-top: 2em;
     margin-bottom: 2em;
+    font-weight: 250;
 }
 
 .button-login input {
@@ -149,7 +150,7 @@ h1,h3{
 }
 
 .button-login input:hover {
-    background: var(--color-light-gray);
+    background: white;
     transition: .2s ease-in-out;
 }
 

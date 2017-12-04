@@ -20,7 +20,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private userService: UserService, private fb: FormBuilder) { }
 
   ngOnInit() {
-    document.querySelector('body').classList.add('blue');        
+    document.querySelector('body').classList.add('blue'); 
+    document.querySelector("nav").classList.add('blue');     
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.minLength(3), Validators.pattern('[a-z0-9._%+-]+@[a-z0-9]+\\.[a-z]{2,3}')]],
       lastname: ['', [Validators.required, Validators.minLength(3)]],
@@ -55,5 +56,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     document.querySelector('body').classList.remove('blue');
+    document.querySelector("nav").classList.remove('blue'); 
   } 
 }
