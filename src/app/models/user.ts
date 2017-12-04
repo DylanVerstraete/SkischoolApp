@@ -10,6 +10,7 @@ export class User {
     email: string;
     skicards: SkiCard[];
     member: boolean;
+    role: string;
     constructor(){}
 }
 

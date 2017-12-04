@@ -44,6 +44,9 @@ var UserSchema = new Schema({
     member: {
         type: Boolean,
         required: true,
+    },
+    role:{
+        type: String,
     }
 });
 

@@ -27,6 +27,7 @@
     "core-js": "^2.4.1",
     "express": "^4.16.1",
     "font-awesome": "^4.7.0",
+    "jwt-decode": "^2.2.0",
     "jwt-simple": "^0.5.1",
     "mongodb": "^2.2.31",
     "mongoose": "^4.12.4",

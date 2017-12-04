@@ -9,7 +9,7 @@ import { User } from '../models/user';
 export class AuthenticationService {
     private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
     userIsloggedIn: EventEmitter<boolean>;
-
+    isAdmin: boolean
     constructor(private http: Http) {
          this.userIsloggedIn = new EventEmitter();
     }
@@ -29,6 +29,10 @@ export class AuthenticationService {
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     validCredentials = true;
                 }
+                if(user.role = "admin"){
+                    this.isAdmin= true
+                }
+                console.log(this.isAdmin);
                 this.userIsloggedIn.emit(validCredentials);
                 return user;
             });
@@ -44,5 +48,9 @@ export class AuthenticationService {
 
     getUser(): User{
         return JSON.parse(localStorage.getItem('currentUser'));
+    }
+
+    isUserAdmin():boolean{
+        return this.isAdmin;
     }
 }

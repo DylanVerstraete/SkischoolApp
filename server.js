@@ -133,6 +133,7 @@ app.get('/setup', function(req, res, next){
     email: "erik@test.be",
     password: "test",
     member: false,
+    role: "admin"
   });
   newUser.save(function(err) {
     if (err) {
@@ -150,7 +151,8 @@ app.post('/api/signup', function(req, res, next) {
     var newUser = new Users({
       email: req.body.email,
       password: req.body.password,
-      member: false
+      member: false,
+      role: "user"
     });
     // save the user
     newUser.save(function(err) {
@@ -177,7 +179,7 @@ app.post("/api/login", function(req,res, next){
           res.json({
             email: user.email,
             password: user.password,
-            token: token
+            token: token,
           });
           console.log("User logged in");
         } else {

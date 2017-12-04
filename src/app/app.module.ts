@@ -17,6 +17,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { CampsComponent } from './camps/camps.component';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './auth/auth.guard';
+import { AdminComponent } from './admin/admin.component';
+import { AdminAuthGuard } from './auth/admin-auth.guard';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import { RegisterComponent } from './register/register.component';
     CampsComponent,
     ProfileEditComponent,
     RegisterComponent,
+    AdminComponent,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -44,14 +48,15 @@ import { RegisterComponent } from './register/register.component';
       { path: "login", component:LoginComponent },
       { path: "register", component:RegisterComponent },
       { path: "home", component:HomeComponent},
-      { path: "profiel", component:ProfileComponent},
-      { path: "profiel/edit", component:ProfileEditComponent},
+      { path: "profiel", component:ProfileComponent, canActivate: [AuthGuard]},
+      { path: "profiel/edit", component:ProfileEditComponent, canActivate: [AuthGuard]},
+      { path: "admin", component:AdminComponent, canActivate: [AdminAuthGuard]},
       { path: "kampen", component:CampsComponent},
       { path: "", component:HomeComponent},
       { path: "**", component:PageNotFoundComponent},      
     ])
   ],
-  providers: [AuthenticationService,UserService],
+  providers: [AuthenticationService,UserService, AuthGuard, AdminAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
