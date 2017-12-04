@@ -10,9 +10,10 @@ import decode from 'jwt-decode';
 export class AuthenticationService {
     private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
     userIsloggedIn: EventEmitter<boolean>;
-    isAdmin: boolean
+    isAdmin: EventEmitter<boolean>;
     constructor(private http: Http) {
          this.userIsloggedIn = new EventEmitter();
+         this.isAdmin = new EventEmitter();
     }
     
     login(email: string, password: string) {
@@ -29,6 +30,13 @@ export class AuthenticationService {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     validCredentials = true;
+                }
+                console.log(user.role);
+                if(user.role == "admin"){
+                    this.isAdmin.emit(true);
+                    console.log(this.isAdmin);
+                }else{
+                    this.isAdmin.emit(false);
                 }
                 this.userIsloggedIn.emit(validCredentials);
                 return user;

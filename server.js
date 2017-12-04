@@ -180,6 +180,7 @@ app.post("/api/login", function(req,res, next){
             email: user.email,
             password: user.password,
             token: token,
+            role: user.role
           });
           console.log("User logged in");
         } else {

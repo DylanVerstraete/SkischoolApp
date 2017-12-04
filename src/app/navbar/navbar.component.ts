@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { User } from '../models/user';
 import decode from 'jwt-decode';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-navbar',
@@ -19,23 +20,17 @@ export class NavbarComponent implements OnInit {
     authenticationService.userIsloggedIn.subscribe(isLoggedIn => {
       this.userIsLoggedIn = isLoggedIn;
       this.user = authenticationService.getUser();
-      if(this.userIsLoggedIn){
-        var token = authenticationService.getUserInfo();
-        if(token.role == "admin"){
-          this.isAdmin = true;
-        }
-      }
-      
+
+      authenticationService.isAdmin.subscribe(isAdmin => {
+        this.isAdmin = isAdmin
+      });
+           
     });
   }
 
   ngOnInit(): void {
     this.user = this.authenticationService.getUser();
     this.userIsLoggedIn = this.user != undefined;
-    if(this.userIsLoggedIn){
-      this.isAdmin = this.authenticationService.getUserInfo().token.role == "admin";
-    }
-
   }
 
   logout($event): void {
