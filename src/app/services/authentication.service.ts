@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { User } from '../models/user';
+import decode from 'jwt-decode';
 
 @Injectable()
 export class AuthenticationService {
@@ -29,10 +30,6 @@ export class AuthenticationService {
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     validCredentials = true;
                 }
-                if(user.role = "admin"){
-                    this.isAdmin= true
-                }
-                console.log(this.isAdmin);
                 this.userIsloggedIn.emit(validCredentials);
                 return user;
             });
@@ -50,7 +47,10 @@ export class AuthenticationService {
         return JSON.parse(localStorage.getItem('currentUser'));
     }
 
-    isUserAdmin():boolean{
-        return this.isAdmin;
+    getUserInfo(){
+        let user = JSON.parse(localStorage.getItem('currentUser'));
+        // decode the token to get its payload
+        const tokenPayload = decode(user.token);
+        return tokenPayload;
     }
 }
