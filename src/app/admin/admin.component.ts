@@ -3,6 +3,7 @@ import { AdminService } from '../services/admin.service';
 import { User } from '../models/user';
 import { MatTableDataSource } from '@angular/material';
 import { MatTableModule } from '@angular/material/table';
+import { SkiCard } from '../models/skicard';
 
 @Component({
   selector: 'app-admin',
@@ -64,6 +65,13 @@ export class AdminComponent implements OnInit {
     this.adminService.editTurn(turn[0]).subscribe(data => console.log(data));
     
   }
+}
+
+interface UserInfo {
+  email: String;
+  member: Boolean;
+  skicards: SkiCard[];
+  pendingSkicards: SkiCard[];
 }
 
 

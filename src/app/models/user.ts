@@ -1,3 +1,5 @@
+import { SkiCard } from "./skicard";
+
 export class User {
     _id: number;
     password: string;
@@ -16,13 +18,5 @@ export class User {
     constructor(){}
 }
 
-class SkiCard{
-    numberOfTurns: number;
-    turns: Turn[];
-    payed: boolean;
-}
 
-class Turn{
-    minutes: number;
-    used: boolean;
-}
+

@@ -36,7 +36,12 @@
     <ng-container matColumnDef="skicardsadd">
       <mat-header-cell *matHeaderCellDef>Skikaart toevoegen</mat-header-cell>
       <mat-cell *matCellDef="let user">
-        <button class="btn btn-info" (click)="addCard(user._id)">voeg kaart toe</button>
+        <div *ngFor="let card of user.skicards">
+          <div *ngIf="card.payed == false">
+            <mat-cell> In aanvraag </mat-cell>
+            <button class="btn btn-info" (click)="addCard(card._id)">Heeft betaald</button>
+          </div>
+        </div>
       </mat-cell>
     </ng-container>
 
