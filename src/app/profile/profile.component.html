@@ -27,8 +27,10 @@
     <hr class="divider">
     <div class="skikaart">
       <h3>Skikaarten</h3>
-      <p>Skikaarten in je bezit: {{user.skicards.length}}</p>
+      <p>Skikaarten in je bezit: {{payedCards.length}}</p>
       <p>Aantal beurten op je skikaarten: {{numberOfTurns}}</p>
+
+      <p>Aantal skikaarten in aanvraag: {{pendingCards.length}}</p>
       <button class="btn btn-info" (click)="buy()">Koop skikaart</button>
     </div>
     <div *ngIf="!user.member">

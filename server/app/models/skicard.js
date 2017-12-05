@@ -2,6 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var SkiCardSchema = new Schema({
+    payed: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     numberOfTurns: {
         type: Number
     },

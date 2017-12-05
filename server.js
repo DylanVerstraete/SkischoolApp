@@ -118,6 +118,48 @@ app.post("/api/users/edit/:email", function(req, res, next){
   })
 });
 
+app.post("/api/users/requestCard/", function(req, res, next){
+  Users.findOne({_id: req.body._id},function(err,user){
+    if (err) next(handleError(res, err.message));
+  }).populate({
+    path:"skicards",
+    model:"SkiCard"
+  }).exec(function(err,user){
+    if (err) next(handleError(res, err.message));
+    var turns = [];
+
+    for(var i = 0; i<10; i++){
+      var turn = new Turn({
+        minutes: 15,
+        used: false
+      });
+      turns.push(turn);
+
+      turn.save(function(err){
+        if (err) next(handleError(res, err.message));
+      });
+    }
+
+    let skicard = new SkiCard({
+      numberOfTurns: 10,
+      turns: turns,
+      payed: false
+    });
+    console.log("USER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+user);
+    user.skicards.push(skicard);
+    user.totalskiturns += 10;
+    console.log("USER BEURTEN!!!!!!!!!!!!!!!!!"+user.totalskiturns);
+    skicard.save(function(err){
+      if (err) next(handleError(res, err.message));
+    });
+
+    user.save(function(err){
+      if (err) next(handleError(res, err.message));
+      res.json(user);
+    });
+  })
+});
+
 app.post("/api/users/addCard/:id", function(req, res, next){
   Users.findOne({_id: req.params.id},function(err,user){
     if (err) next(handleError(res, err.message));
@@ -142,7 +184,8 @@ app.post("/api/users/addCard/:id", function(req, res, next){
 
     let skicard = new SkiCard({
       numberOfTurns: 10,
-      turns: turns
+      turns: turns,
+      payed: true
     });
     console.log("USER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+user);
     user.skicards.push(skicard);

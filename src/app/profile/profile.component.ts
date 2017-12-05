@@ -13,7 +13,8 @@ export class ProfileComponent implements OnInit {
 
   user: User;
   numberOfTurns: number = 0;
-
+  pendingCards: any = {};
+  payedCards: any = {};
 
   @HostBinding('body.background-color')
   bgColor;
@@ -27,6 +28,8 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(user => {
       this.user = user;
+      this.pendingCards = this.user.skicards.filter(e => e.payed == false);
+      this.payedCards = this.user.skicards.filter(e => e.payed == true);      
       this.calculateTurns();
     });
   }
@@ -34,17 +37,26 @@ export class ProfileComponent implements OnInit {
   buy() {
     let skiCard = {
       numberOfTurns: 10,
-      turns: []
+      turns: [],
+      payed: false
     }
-    this.user.skicards.push(skiCard);
-    this.userService.addSkiCard(this.user).subscribe(data => this.user = data);
-    this.calculateTurns();
+    //this.user.skicards.push(skiCard);
+    this.userService.requestCard(this.user).subscribe(data => {
+      this.user = data;
+      this.calculateTurns();
+    });
+    //this.userService.addSkiCard(this.user).subscribe(data => this.user = data);
+    
   }
 
   calculateTurns(){
+    this.payedCards = this.user.skicards.filter(e => e.payed == true);      
+    this.pendingCards = this.user.skicards.filter(e => e.payed == false);    
     this.numberOfTurns = 0;
     this.user.skicards.forEach(elem => {
-      this.numberOfTurns += elem.numberOfTurns;
+      if(elem.payed == true){
+        this.numberOfTurns += elem.numberOfTurns;        
+      }
     });
   }
 

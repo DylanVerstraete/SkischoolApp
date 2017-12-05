@@ -19,6 +19,7 @@ export class User {
 class SkiCard{
     numberOfTurns: number;
     turns: Turn[];
+    payed: boolean;
 }
 
 class Turn{
