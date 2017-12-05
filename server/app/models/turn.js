@@ -7,7 +7,8 @@ var TurnSchema = new Schema({
         default: 15
     },
     used: {
-        type: Boolean
+        type: Boolean,
+        required: true
     }
 });
 

@@ -48,7 +48,21 @@ export class AdminComponent implements OnInit {
   }
 
   decreaseTurn(value: number, id: number){
-    console.log(value, id);
+    //console.log(value, id);
+    var _turn;
+    var user = this.users.filter(e => e._id == id);
+    var skicard = user[0].skicards.filter(z => z.turns.length > 0);
+    console.log(skicard[2].turns[0]);
+    var turn = skicard[2].turns.filter(g => g.used == false);
+    console.log(turn[0]);
+    //console.log(user);
+    //console.log(user[0].skicards[0].turns[0]);
+    var restingMinutes = user[0].skicards[0].turns[0].minutes - value;
+    //console.log(restingMinutes);
+    turn[0].minutes = restingMinutes;
+    console.log(turn[0]);
+    this.adminService.editTurn(turn[0]).subscribe(data => console.log(data));
+    
   }
 }
 

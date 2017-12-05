@@ -130,7 +130,8 @@ app.post("/api/users/addCard/:id", function(req, res, next){
 
     for(var i = 0; i<10; i++){
       var turn = new Turn({
-        minutes: 15
+        minutes: 15,
+        used: false
       });
       turns.push(turn);
 
@@ -265,6 +266,29 @@ app.post("/api/delete/member", function(req, res, next){
     }
   })
 });
+
+app.post("/api/editTurn/", function(req, res, next){
+  Turn.findOne({
+    _id : req.body._id
+  }, function(err, turn){
+    if(err) next(handleError(res, "Turn not found", "Turn doesn't exists", 400));
+    
+    turn.minutes = req.body.minutes;
+    //turn.used = req.body.used;
+
+    if(turn.minutes = 0){
+      turn.used = true;
+    }
+
+    turn.save(function(err){
+      if (err) {
+        next(handleError(res, err.message, "User is not a member"));
+      }
+    });
+    
+    res.json(turn);
+  })
+})
 
 //VOORBEELD VOOR JWT AUTHENTICATED ROUTE
 app.get("/api/secret", passport.authenticate('jwt', { session: false }), function(req, res){
