@@ -143,9 +143,10 @@ app.post("/api/users/addCard/:id", function(req, res, next){
       numberOfTurns: 10,
       turns: turns
     });
-    console.log("USER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+skicard);
+    console.log("USER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+user);
     user.skicards.push(skicard);
-
+    user.totalskiturns += 10;
+    console.log("USER BEURTEN!!!!!!!!!!!!!!!!!"+user.totalskiturns);
     skicard.save(function(err){
       if (err) next(handleError(res, err.message));
     });
@@ -163,7 +164,8 @@ app.get('/setup', function(req, res, next){
     email: "erik@test.be",
     password: "test",
     member: false,
-    role: "admin"
+    role: "admin",
+    totalskiturns: 0
   });
   newUser.save(function(err) {
     if (err) {
@@ -182,7 +184,8 @@ app.post('/api/signup', function(req, res, next) {
       email: req.body.email,
       password: req.body.password,
       member: false,
-      role: "user"
+      role: "user",
+      totalskiturns: 0
     });
     // save the user
     newUser.save(function(err) {

@@ -9,6 +9,7 @@ export class User {
     telephonenumber: string;
     email: string;
     skicards: SkiCard[];
+    totalskiturns: number;
     member: boolean;
     role: string;
     constructor(){}
@@ -16,4 +17,10 @@ export class User {
 
 class SkiCard{
     numberOfTurns: number;
+    turns: Turn[];
+}
+
+class Turn{
+    minutes: number;
+    used: boolean;
 }

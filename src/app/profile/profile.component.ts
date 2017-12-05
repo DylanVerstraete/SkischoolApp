@@ -33,7 +33,8 @@ export class ProfileComponent implements OnInit {
 
   buy() {
     let skiCard = {
-      numberOfTurns: 10
+      numberOfTurns: 10,
+      turns: []
     }
     this.user.skicards.push(skiCard);
     this.userService.addSkiCard(this.user).subscribe(data => this.user = data);

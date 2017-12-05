@@ -42,15 +42,18 @@
 
     <ng-container matColumnDef="skiturns">
       <mat-header-cell *matHeaderCellDef> Aantal skibeurten </mat-header-cell>
-      <mat-cell *matCellDef="let user"> 
-        {{user.skicards.length}} 
-        <div *ngFor="let card of user.skicards">
-
-        </div>
+      <mat-cell *matCellDef="let user">
+        {{user.totalskiturns}}
       </mat-cell>
     </ng-container>
 
-
+    <ng-container matColumnDef="markturnasused">
+      <mat-header-cell *matHeaderCellDef>Trek beurt af</mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <input type="number" placeholder="aantal minuten geskied" value="minutes" #minutes>
+        <button class="btn btn-warning" (click)="decreaseTurn(minutes.value, user._id)">Trek beurt af</button>
+      </mat-cell>
+    </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

@@ -11,7 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 })
 export class AdminComponent implements OnInit {
 
-  displayedColumns = ['email', 'member', 'memberadd', 'skicards', 'skicardsadd'];
+  displayedColumns = ['email', 'member', 'memberadd', 'skicards', 'skicardsadd', 'skiturns', 'markturnasused'];
   users: User[];
   dataSource = new MatTableDataSource<User>(this.users);
   
@@ -45,6 +45,10 @@ export class AdminComponent implements OnInit {
       console.log(data);
       this.dataSource = new MatTableDataSource<User>(this.users);
     });
+  }
+
+  decreaseTurn(value: number, id: number){
+    console.log(value, id);
   }
 }
 

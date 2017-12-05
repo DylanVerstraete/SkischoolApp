@@ -2,13 +2,13 @@
 .example-container {
     display: flex;
     flex-direction: column;
-    max-height: 500px;
+    max-height: 1000px;
     min-width: 300px;
   }
   
   .mat-table {
     overflow: auto;
-    max-height: 500px;
+    max-height: 1000px;
     margin: 10px;
   }
   
@@ -19,4 +19,16 @@
 h3{
   color: black;
   margin: 10px;
+}
+
+.mat-cell button{
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.mat-cell input{
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
