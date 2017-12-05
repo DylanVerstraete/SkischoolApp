@@ -41,6 +41,9 @@ var UserSchema = new Schema({
         required: false
     },
     skicards: [{type: Schema.ObjectId, ref: "SkiCard"}],
+    totalskiturns: {
+        type: Number
+    },
     member: {
         type: Boolean,
         required: true,

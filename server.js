@@ -112,8 +112,8 @@ app.post("/api/users/edit/:email", function(req, res, next){
   })
 });
 
-app.post("/api/users/addCard", function(req, res, next){
-  Users.findOne({email: req.body.email},function(err,user){
+app.post("/api/users/addCard/:id", function(req, res, next){
+  Users.findOne({_id: req.params.id},function(err,user){
     if (err) next(handleError(res, err.message));
   }).populate({
     path:"skicards",

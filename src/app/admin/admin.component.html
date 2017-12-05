@@ -1,3 +1,58 @@
-<div *ngFor="let user of users">
-  <p>{{user.email}}</p>
+<h2 class="page-title">Admin paneel</h2>
+
+<h3>Gebruikersinformatie</h3>
+<div class="example-container mat-elevation-z8">
+  <mat-table #table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> Email adres </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{user.email}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="member">
+      <mat-header-cell *matHeaderCellDef> Lid </mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <div *ngIf="user.member">
+          ja
+        </div>
+        <div *ngIf="!user.member">
+          nee
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="memberadd">
+      <mat-header-cell *matHeaderCellDef>Als lid toevoegen</mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <button class="btn btn-info" (click)="addMember(user)">Markeer als lid</button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="skicards">
+      <mat-header-cell *matHeaderCellDef> Aantal skikaarten </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{user.skicards.length}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="skicardsadd">
+      <mat-header-cell *matHeaderCellDef>Skikaart toevoegen</mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <button class="btn btn-info" (click)="addCard(user._id)">voeg kaart toe</button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="skiturns">
+      <mat-header-cell *matHeaderCellDef> Aantal skibeurten </mat-header-cell>
+      <mat-cell *matCellDef="let user"> 
+        {{user.skicards.length}} 
+        <div *ngFor="let card of user.skicards">
+
+        </div>
+      </mat-cell>
+    </ng-container>
+
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
 </div>
