@@ -16,6 +16,8 @@ var localStorage = require('node-localstorage').localStorage;
 var config = require('./server/app/config/config.js');
 var Users = require('./server/app/models/user.js');
 var SkiCard = require('./server/app/models/skicard.js');
+var Turn = require('./server/app/models/turn.js');
+
 
 var USERS_COLLECTION = "users";
 
@@ -72,8 +74,12 @@ function handleError(res, reason, message, code) {
 
 app.get("/api/users/", function(req,res,next){
   Users.find({}).populate({
-    path:"skicard",
-    mode:"skiCard"
+    path:"skicards",
+    model:"SkiCard",
+    populate:{
+      path:"turns",
+      model:"Turn"
+    }
   }).exec(function(err,users){
     if(err) next(handleError(res, err.message));
     res.json(users);
@@ -120,10 +126,24 @@ app.post("/api/users/addCard/:id", function(req, res, next){
     model:"SkiCard"
   }).exec(function(err,user){
     if (err) next(handleError(res, err.message));
+    var turns = [];
+
+    for(var i = 0; i<10; i++){
+      var turn = new Turn({
+        minutes: 15
+      });
+      turns.push(turn);
+
+      turn.save(function(err){
+        if (err) next(handleError(res, err.message));
+      });
+    }
+
     let skicard = new SkiCard({
-      numberOfTurns: 10
+      numberOfTurns: 10,
+      turns: turns
     });
-    console.log("USER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+user);
+    console.log("USER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+skicard);
     user.skicards.push(skicard);
 
     skicard.save(function(err){
