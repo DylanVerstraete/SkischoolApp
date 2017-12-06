@@ -65,9 +65,11 @@ export class AuthenticationService {
     getAdmin(): User{
         let user = JSON.parse(localStorage.getItem('currentUser'));
         // decode the token to get its payload
-        const tokenPayload = decode(user.token);
-        if(tokenPayload.role == "admin"){
-            return user;
+        if(user.token){
+            const tokenPayload = decode(user.token);
+            if(tokenPayload.role == "admin"){
+                return user;
+            }
         }
         //return tokenPayload;
     }
