@@ -56,6 +56,7 @@ import {
   MatStepperModule,
 } from '@angular/material';
 import { CardBuyComponent } from './profile/card-buy/card-buy.component';
+import { MemberAddComponent } from './profile/member-add/member-add.component';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import { CardBuyComponent } from './profile/card-buy/card-buy.component';
     RegisterComponent,
     AdminComponent,
     CardBuyComponent,
+    MemberAddComponent,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -128,6 +130,6 @@ import { CardBuyComponent } from './profile/card-buy/card-buy.component';
   ],
   providers: [AuthenticationService, UserService, AuthGuard, AdminAuthGuard, AdminService],
   bootstrap: [AppComponent],
-  entryComponents: [CardBuyComponent ]  
+  entryComponents: [CardBuyComponent, MemberAddComponent]  
 })
 export class AppModule { }

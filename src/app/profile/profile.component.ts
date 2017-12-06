@@ -5,6 +5,7 @@ import { UserService } from '../services/user.service';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatDialog } from '@angular/material';
 import { CardBuyComponent } from './card-buy/card-buy.component';
+import { MemberAddComponent } from './member-add/member-add.component';
 
 @Component({
   selector: 'app-profile',
@@ -75,7 +76,18 @@ export class ProfileComponent implements OnInit {
   }
 
   makeMember(){
-    this.userService.makeMember(this.user).subscribe(data => {console.log(data),this.user = data});
+    let dialogRef = this.dialog.open(MemberAddComponent, {
+      width: '500px',
+      data: {
+        message: "U heeft betaald!"
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if(result == "ok"){
+        this.userService.makeMember(this.user).subscribe(data => {console.log(data),this.user = data});        
+      } 
+    });
   }
 
   undoMember(){
