@@ -56,6 +56,7 @@ export class ProfileComponent implements OnInit {
         }
         //this.user.skicards.push(skiCard);
         this.userService.requestCard(this.user).subscribe(data => {
+          console.log(data);
           this.user = data;
           this.calculateTurns();
         });
@@ -84,7 +85,7 @@ export class ProfileComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      if(result == "ok"){
+      if(result == "lid"){
         this.userService.makeMember(this.user).subscribe(data => {console.log(data),this.user = data});        
       } 
     });

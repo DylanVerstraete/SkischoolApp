@@ -130,7 +130,7 @@ app.post("/api/users/requestCard/", function(req, res, next){
   }).populate({
     path:"skicards",
     model:"SkiCard"
-  }).exec(function(err,user){
+  }).populate({path:"member", model:"Member"}).exec(function(err,user){
     if (err) next(handleError(res, err.message));
     var turns = [];
 
@@ -280,6 +280,12 @@ app.post("/api/add/pendingMember", function(req, res, next){
     user.member.pending = true;
 
     user.save(function(err) {
+      if (err) {
+        next(handleError(res, err.message, "User is already member"));
+      }
+    });
+
+    user.member.save(function(err) {
       if (err) {
         next(handleError(res, err.message, "User is already member"));
       }

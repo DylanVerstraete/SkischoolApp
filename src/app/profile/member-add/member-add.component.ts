@@ -15,7 +15,7 @@ export class MemberAddComponent implements OnInit {
   }
 
   closeDialog(): void{
-    this.dialogRef.close("ok");
+    this.dialogRef.close("lid");
   }
 
   onNoClick(): void {
