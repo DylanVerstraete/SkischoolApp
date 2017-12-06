@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.userService.getCurrentUser().subscribe(user => {
       this.user = user;
+      console.log(this.user);
       this.pendingCards = this.user.skicards.filter(e => e.payed == false);
       this.payedCards = this.user.skicards.filter(e => e.payed == true);      
       this.calculateTurns();
@@ -74,7 +75,7 @@ export class ProfileComponent implements OnInit {
   }
 
   makeMember(){
-    this.userService.makeMember(this.user).subscribe(data => this.user = data);
+    this.userService.makeMember(this.user).subscribe(data => {console.log(data),this.user = data});
   }
 
   undoMember(){

@@ -48,7 +48,7 @@ export class UserService {
     }
 
     makeMember(user: User){
-        return this.http.post('http://127.0.0.1:5000/api/add/member' , user, this.jwt()).map((response: Response) => response.json());
+        return this.http.post('http://127.0.0.1:5000/api/add/pendingMember' , user, this.jwt()).map((response: Response) => response.json());
     }
 
     undoMember(user: User){

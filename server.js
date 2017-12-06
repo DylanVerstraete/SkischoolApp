@@ -17,6 +17,7 @@ var config = require('./server/app/config/config.js');
 var Users = require('./server/app/models/user.js');
 var SkiCard = require('./server/app/models/skicard.js');
 var Turn = require('./server/app/models/turn.js');
+var Member = require('./server/app/models/member.js');
 
 
 var USERS_COLLECTION = "users";
@@ -80,7 +81,7 @@ app.get("/api/users/", function(req,res,next){
       path:"turns",
       model:"Turn"
     }
-  }).exec(function(err,users){
+  }).populate({path: "member", model: "Member"}).exec(function(err,users){
     if(err) next(handleError(res, err.message));
     res.json(users);
   })
@@ -89,11 +90,16 @@ app.get("/api/users/", function(req,res,next){
 app.get("/api/users/:email", function(req, res, next){
   Users.findOne({email:req.params.email},function(err, user){
     if(err) next(handleError(res, err.message));
-    console.log(user);
-    res.json(user);
   }).populate({
     path:"skicards",
-    model:"SkiCard"
+    model:"SkiCard",
+    }).populate({
+      path:'member',
+      model:"Member"
+    }).exec(function(err,user){
+    if(err) next(handleError(res, err.message));
+    
+    res.json(user);
   })
 });
 
@@ -178,14 +184,23 @@ app.post("/api/users/addCard/:id", function(req, res, next){
 
 /*create sample user*/
 app.get('/setup', function(req, res, next){
+  var newMember = new Member({
+    pending: false,
+    isMember: true
+  })
   var newUser = new Users({
     email: "erik@test.be",
     password: "test",
-    member: false,
+    member: newMember,
     role: "admin",
     totalskiturns: 0
   });
   newUser.save(function(err) {
+    if (err) {
+      next(handleError(res, err.message, "Failed to create user"));
+    }
+  });
+  newMember.save(function(err) {
     if (err) {
       next(handleError(res, err.message, "Failed to create user"));
     }
@@ -197,16 +212,25 @@ app.post('/api/signup', function(req, res, next) {
   if (!req.body.email || !req.body.password) {
     next(handleError(res, 'No email in body', 'Password or Email not valid', 400));
   } else {
+    var newMember = new Member({
+      isMember : false,
+      pending: false
+    })
     //create a new user
     var newUser = new Users({
       email: req.body.email,
       password: req.body.password,
-      member: false,
       role: "user",
-      totalskiturns: 0
+      totalskiturns: 0,
+      member: newMember
     });
     // save the user
     newUser.save(function(err) {
+      if (err) {
+        next(handleError(res, "Email bestaat al", "Email already exists."));
+      }
+    });
+    newMember.save(function(err) {
       if (err) {
         next(handleError(res, "Email bestaat al", "Email already exists."));
       }
@@ -242,46 +266,81 @@ app.post("/api/login", function(req,res, next){
   });
 });
 
-app.post("/api/add/member", function(req, res, next){
+app.post("/api/add/pendingMember", function(req, res, next){
+  console.log(req.body);
+  
   Users.findOne({
     email: req.body.email
-  }, function(err, user) {
-    if(err) next(handleError(res, "User not found", "User doesn't exists", 400));
-    if (!user) {
-      next(handleError(res, "User not found", "User doesn't exists", 400));
-    }else{
-
-      user.member = true;
-
-      user.save(function(err) {
-        if (err) {
-          next(handleError(res, err.message, "User is already member"));
-        }
-      });
-      res.json(user);
-    }
+  },function(err,user){
+    if (err) next(handleError(res, "User not found", "User doesn't exists", 400));    
   })
+  .populate({path: "member", model:"Member"})
+  .exec(function(err, user) {
+    if(err) next(handleError(res, "User not found", "User doesn't exists", 400));
+    user.member.pending = true;
+
+    user.save(function(err) {
+      if (err) {
+        next(handleError(res, err.message, "User is already member"));
+      }
+    });
+    res.json(user);
+  });
 });
 
-app.post("/api/delete/member", function(req, res, next){
+app.post("/api/add/member", function(req, res, next){
+  console.log(req.body);
   Users.findOne({
     email: req.body.email
-  }, function(err, user) {
+  },function(err,user){
+    if (err) next(handleError(res, "User not found", "User doesn't exists", 400));    
+  }).populate({
+      path: "member",
+      model:"Member"}).exec(function(err, user) {
     if(err) next(handleError(res, "User not found", "User doesn't exists", 400));
-    if (!user) {
-      next(handleError(res, "User not found", "User doesn't exists", 400));
-    }else{
+    user.member.pending = false;
+    user.member.isMember = true;
+    user.save(function(err) {
+      if (err) {
+        next(handleError(res, err.message, "User is already member"));
+      }
+    });
 
-      user.member = false;
+    user.member.save(function(err) {
+      if (err) {
+        next(handleError(res, err.message, "User is already member"));
+      }
+    });
+    res.json(user);
+  });
+});
 
-      user.save(function(err) {
-        if (err) {
-          next(handleError(res, err.message, "User is not a member"));
-        }
-      });
-      res.json(user);
-    }
-  })
+
+app.post("/api/delete/member", function(req, res, next){
+  console.log(req.body);
+  Users.findOne({
+    email: req.body.email
+  },function(err,user){
+    if (err) next(handleError(res, "User not found", "User doesn't exists", 400));    
+  }).populate({
+      path: "member",
+      model:"Member"}).exec(function(err, user) {
+    if(err) next(handleError(res, "User not found", "User doesn't exists", 400));
+    user.member.pending = false;
+    user.member.isMember = false;
+    user.save(function(err) {
+      if (err) {
+        next(handleError(res, err.message, "User is already member"));
+      }
+    });
+
+    user.member.save(function(err) {
+      if (err) {
+        next(handleError(res, err.message, "User is already member"));
+      }
+    });
+    res.json(user);
+  });
 });
 
 app.post("/api/editTurn/", function(req, res, next){

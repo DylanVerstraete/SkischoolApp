@@ -13,9 +13,14 @@ export class User {
     email: string;
     skicards: SkiCard[];
     totalskiturns: number;
-    member: boolean;
+    member: Member;
     role: string;
     constructor(){}
+}
+
+class Member{
+    pending: boolean;
+    isMember: boolean;    
 }
 
 

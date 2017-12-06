@@ -12,10 +12,10 @@
     <ng-container matColumnDef="member">
       <mat-header-cell *matHeaderCellDef> Lid </mat-header-cell>
       <mat-cell *matCellDef="let user">
-        <div *ngIf="user.member">
+        <div *ngIf="user.member.isMember">
           ja
         </div>
-        <div *ngIf="!user.member">
+        <div *ngIf="!user.member.isMember">
           nee
         </div>
       </mat-cell>

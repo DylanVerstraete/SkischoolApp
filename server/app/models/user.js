@@ -44,10 +44,7 @@ var UserSchema = new Schema({
         type: Number,
         required: false
     },
-    member: {
-        type: Boolean,
-        required: true,
-    },
+    member: {type: Schema.ObjectId, ref:"Member"},
     role:{
         type: String,
     }
