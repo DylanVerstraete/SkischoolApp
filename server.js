@@ -46,6 +46,9 @@ app.use(function(req, res, next) {
 var distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
 
+app.get('*', function(req, res){
+  res.sendfile(__dirname + '/index.html');
+});
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 var db;
 
