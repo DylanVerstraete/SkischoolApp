@@ -183,7 +183,7 @@ app.post("/api/users/addCard/:id", function(req, res, next){
 });
 
 /*create sample user*/
-app.get('/setup', function(req, res, next){
+app.get('/api/setup', function(req, res, next){
   var newMember = new Member({
     pending: false,
     isMember: true
