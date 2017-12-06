@@ -12,7 +12,7 @@ import { SkiCard } from '../models/skicard';
 })
 export class AdminComponent implements OnInit {
 
-  displayedColumns = ['email', 'member', 'memberadd', 'skicards', 'skicardsadd', 'skiturns', 'markturnasused'];
+  displayedColumns = ['email', 'member', 'memberadd', 'skicards', 'skicardsadd'];
   users: User[];
   dataSource = new MatTableDataSource<User>(this.users);
   

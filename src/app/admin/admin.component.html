@@ -22,29 +22,47 @@
     </ng-container>
 
     <ng-container matColumnDef="memberadd">
-      <mat-header-cell *matHeaderCellDef>Als lid toevoegen</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Lid status</mat-header-cell>
       <mat-cell *matCellDef="let user">
-        <button class="btn btn-info" (click)="addMember(user)">Markeer als lid</button>
+        <div *ngIf="user.member.isMember">
+          <p>Is lid</p>
+        </div>
+        <div *ngIf="user.member.pending">
+          <p>Wil lid worden</p>
+          <button class="btn btn-info" (click)="addMember(user)">Markeer als lid</button>  
+        </div>
+        <div *ngIf="!user.member.isMember && !user.member.pending">
+          <p>Is geen lid</p>
+        </div>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="skicards">
       <mat-header-cell *matHeaderCellDef> Aantal skikaarten </mat-header-cell>
-      <mat-cell *matCellDef="let user"> {{user.skicards.length}} </mat-cell>
+      <mat-cell *matCellDef="let user"> 
+        <div *ngIf="user.skicards.length == 0">
+          Geen skikaarten
+        </div>
+        <div *ngIf="user.skicards.length > 0">
+          {{user.skicards.length}}
+        </div>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="skicardsadd">
       <mat-header-cell *matHeaderCellDef>Skikaart toevoegen</mat-header-cell>
       <mat-cell *matCellDef="let user">
         <div *ngFor="let card of user.skicards">
-          <div *ngIf="card.payed == false">
+          <div *ngIf="!card.payed">
             <mat-cell> In aanvraag </mat-cell>
             <button class="btn btn-info" (click)="addCard(card._id)">Heeft betaald</button>
           </div>
+          <div ></div>
         </div>
       </mat-cell>
     </ng-container>
 
+    <!-- 
     <ng-container matColumnDef="skiturns">
       <mat-header-cell *matHeaderCellDef> Aantal skibeurten </mat-header-cell>
       <mat-cell *matCellDef="let user">
@@ -59,6 +77,8 @@
         <button class="btn btn-warning" (click)="decreaseTurn(minutes.value, user._id)">Trek beurt af</button>
       </mat-cell>
     </ng-container>
+    -->
+    
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
