@@ -2,6 +2,9 @@ import { Component, OnInit, HostBinding, ViewEncapsulation } from '@angular/core
 import { User } from '../models/user';
 import { AuthenticationService } from '../services/authentication.service';
 import { UserService } from '../services/user.service';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material';
+import { CardBuyComponent } from './card-buy/card-buy.component';
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +22,7 @@ export class ProfileComponent implements OnInit {
   @HostBinding('body.background-color')
   bgColor;
 
-  constructor(private authenticationService: AuthenticationService, private userService: UserService) {
+  constructor(private authenticationService: AuthenticationService, private userService: UserService, public dialog: MatDialog) {
     this.bgColor = "none";
     //document.getElementById('body').style.background = "none";        
     
@@ -35,18 +38,28 @@ export class ProfileComponent implements OnInit {
   }
 
   buy() {
-    let skiCard = {
-      numberOfTurns: 10,
-      turns: [],
-      payed: false
-    }
-    //this.user.skicards.push(skiCard);
-    this.userService.requestCard(this.user).subscribe(data => {
-      this.user = data;
-      this.calculateTurns();
+    let dialogRef = this.dialog.open(CardBuyComponent, {
+      width: '500px',
+      data: {
+        message: "U heeft betaald!"
+      }
     });
-    //this.userService.addSkiCard(this.user).subscribe(data => this.user = data);
-    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if(result == "ok"){
+        let skiCard = {
+          numberOfTurns: 10,
+          turns: [],
+          payed: false
+        }
+        //this.user.skicards.push(skiCard);
+        this.userService.requestCard(this.user).subscribe(data => {
+          this.user = data;
+          this.calculateTurns();
+        });
+      }
+     
+    });
   }
 
   calculateTurns(){

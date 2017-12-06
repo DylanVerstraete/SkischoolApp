@@ -55,6 +55,8 @@ import {
   MatTooltipModule,
   MatStepperModule,
 } from '@angular/material';
+import { CardBuyComponent } from './profile/card-buy/card-buy.component';
+
 
 @NgModule({
   declarations: [
@@ -68,6 +70,7 @@ import {
     ProfileEditComponent,
     RegisterComponent,
     AdminComponent,
+    CardBuyComponent,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -124,6 +127,7 @@ import {
     ])
   ],
   providers: [AuthenticationService, UserService, AuthGuard, AdminAuthGuard, AdminService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CardBuyComponent ]  
 })
 export class AppModule { }
