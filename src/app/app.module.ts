@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CollapseModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -79,7 +78,6 @@ import { MemberAddComponent } from './profile/member-add/member-add.component';
   ],
   imports: [
     BrowserModule,
-    CollapseModule,
     HttpModule,
     HttpClientModule,
     FormsModule,
