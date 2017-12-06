@@ -21,7 +21,7 @@ export class AuthenticationService {
       body.set('email', email);
       body.set('password', password);
   
-        return this.http.post("http://127.0.0.1:5000/api/login",body.toString(),{headers: this.headers})
+        return this.http.post("/api/login",body.toString(),{headers: this.headers})
             .map((response: Response) => {
                 let validCredentials: boolean = false;
                 // login successful if there's a jwt token in the response
