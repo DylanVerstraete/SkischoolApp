@@ -74,7 +74,7 @@ mongodb.MongoClient.connect("mongodb://IceCold:tcoms99@ds129936.mlab.com:29936/s
 function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
   res.status(code || 500).json({"error": message});
-}
+};
 
 app.get("/api/users/", function(req,res,next){
   Users.find({}).populate({
@@ -88,7 +88,7 @@ app.get("/api/users/", function(req,res,next){
     if(err) next(handleError(res, err.message));
     res.json(users);
   })
-})
+});
 
 app.get("/api/users/:email", function(req, res, next){
   Users.findOne({email:req.params.email},function(err, user){
@@ -166,7 +166,7 @@ app.post("/api/users/requestCard/", function(req, res, next){
       if (err) next(handleError(res, err.message));
       res.json(user);
     });
-  })
+  });
 });
 
 app.post("/api/users/addCard/:id", function(req, res, next){
