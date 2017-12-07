@@ -9,18 +9,6 @@
       <mat-cell *matCellDef="let user"> {{user.email}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="member">
-      <mat-header-cell *matHeaderCellDef> Lid </mat-header-cell>
-      <mat-cell *matCellDef="let user">
-        <div *ngIf="user.member.isMember">
-          ja
-        </div>
-        <div *ngIf="!user.member.isMember">
-          nee
-        </div>
-      </mat-cell>
-    </ng-container>
-
     <ng-container matColumnDef="memberadd">
       <mat-header-cell *matHeaderCellDef>Lid status</mat-header-cell>
       <mat-cell *matCellDef="let user">

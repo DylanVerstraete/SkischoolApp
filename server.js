@@ -74,7 +74,7 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 };
 
-app.get("/api/users/", function(req,res,next){
+app.get("/api/users/", passport.authenticate('jwt', { session: false }), function(req,res,next){
   Users.find({}).populate({
     path:"skicards",
     model:"SkiCard",
@@ -88,7 +88,7 @@ app.get("/api/users/", function(req,res,next){
   })
 });
 
-app.get("/api/users/:email", function(req, res, next){
+app.get("/api/users/:email", passport.authenticate('jwt', { session: false }), function(req, res, next){
   Users.findOne({email:req.params.email},function(err, user){
     if(err) next(handleError(res, err.message));
   }).populate({
@@ -104,7 +104,7 @@ app.get("/api/users/:email", function(req, res, next){
   })
 });
 
-app.post("/api/users/edit/:email", function(req, res, next){
+app.post("/api/users/edit/:email", passport.authenticate('jwt', { session: false }), function(req, res, next){
   console.log(req.body)
   Users.findOne({email: req.body.email},function(err,user){}).populate({
     path:"skicards",
@@ -125,7 +125,7 @@ app.post("/api/users/edit/:email", function(req, res, next){
   })
 });
 
-app.post("/api/users/requestCard/", function(req, res, next){
+app.post("/api/users/requestCard/", passport.authenticate('jwt', { session: false }), function(req, res, next){
   Users.findOne({_id: req.body._id},function(err,user){
     if (err) next(handleError(res, err.message));
   }).populate({
@@ -167,7 +167,7 @@ app.post("/api/users/requestCard/", function(req, res, next){
   });
 });
 
-app.post("/api/users/addCard/:id", function(req, res, next){
+app.post("/api/users/addCard/:id", passport.authenticate('jwt', { session: false }), function(req, res, next){
   SkiCard.findOne({_id: req.params.id},function(err,card){
     if (err) next(handleError(res, err.message));
   }).populate({
@@ -267,7 +267,7 @@ app.post("/api/login", function(req,res, next){
   });
 });
 
-app.post("/api/add/pendingMember", function(req, res, next){
+app.post("/api/add/pendingMember", passport.authenticate('jwt', { session: false }), function(req, res, next){
   console.log(req.body);
   
   Users.findOne({
@@ -295,7 +295,7 @@ app.post("/api/add/pendingMember", function(req, res, next){
   });
 });
 
-app.post("/api/add/member", function(req, res, next){
+app.post("/api/add/member", passport.authenticate('jwt', { session: false }), function(req, res, next){
   console.log(req.body);
   Users.findOne({
     email: req.body.email
@@ -323,7 +323,7 @@ app.post("/api/add/member", function(req, res, next){
 });
 
 
-app.post("/api/delete/member", function(req, res, next){
+app.post("/api/delete/member", passport.authenticate('jwt', { session: false }), function(req, res, next){
   console.log(req.body);
   Users.findOne({
     email: req.body.email
@@ -350,7 +350,7 @@ app.post("/api/delete/member", function(req, res, next){
   });
 });
 
-app.post("/api/editTurn/", function(req, res, next){
+app.post("/api/editTurn/", passport.authenticate('jwt', { session: false }), function(req, res, next){
   Turn.findOne({
     _id : req.body._id
   }, function(err, turn){
