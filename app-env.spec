@@ -1,0 +1,1 @@
+export secretKey="blablablablablablablablablablablabla"
