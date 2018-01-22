@@ -51,7 +51,7 @@ app.use(express.static(distDir));
 var db;
 
 // Connect to the database before starting the application server.
-mongodb.MongoClient.connect("mongodb://IceCold:tcoms99@ds129936.mlab.com:29936/skischool", function (err, database) {
+mongodb.MongoClient.connect("mongodb://localhost:27017/skischool", function (err, database) {
   if (err) {
     console.log(err);
     process.exit(1);
@@ -378,6 +378,8 @@ app.get("/api/secret", passport.authenticate('jwt', { session: false }), functio
   res.json("Success! You can not see this without a token");
 });
 
+/*
 app.get('*', function(req, res){
   res.sendfile(distDir + 'index.html');
 });
+*/

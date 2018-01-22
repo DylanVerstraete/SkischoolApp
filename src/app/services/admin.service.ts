@@ -4,22 +4,24 @@ import { User } from '../models/user';
 
 @Injectable()
 export class AdminService {
+  base_url: "http://localhost:5000";
+  
   constructor(private http: Http) { }
   
     getAllUser() {
-      return this.http.get('/api/users/' , this.jwt()).map((response: Response) => response.json());
+      return this.http.get('http://localhost:5000/api/users/' , this.jwt()).map((response: Response) => response.json());
     }
 
     addCardToUserWithId(id: number){
-      return this.http.post('/api/users/addCard/' + id , this.jwt()).map((response: Response) => response.json());
+      return this.http.post('http://localhost:5000/api/users/addCard/' + id , this.jwt()).map((response: Response) => response.json());
     }
 
     addMember(user: User){
-      return this.http.post('/api/add/member/', user , this.jwt()).map((response: Response) => response.json());
+      return this.http.post('http://localhost:5000/api/add/member/', user , this.jwt()).map((response: Response) => response.json());
     }
 
     editTurn(turn: any){
-      return this.http.post('/api/editTurn/' , turn , this.jwt()).map((response: Response) => response.json());
+      return this.http.post('http://localhost:5000/api/editTurn/' , turn , this.jwt()).map((response: Response) => response.json());
     }
     // private helper methods
   

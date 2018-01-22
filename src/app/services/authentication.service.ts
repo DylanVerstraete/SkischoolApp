@@ -11,6 +11,7 @@ export class AuthenticationService {
     private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
     userIsloggedIn: EventEmitter<boolean>;
     isAdmin: EventEmitter<boolean>;
+    
     constructor(private http: Http) {
          this.userIsloggedIn = new EventEmitter();
          this.isAdmin = new EventEmitter();
@@ -21,7 +22,7 @@ export class AuthenticationService {
       body.set('email', email);
       body.set('password', password);
   
-        return this.http.post("/api/login",body.toString(),{headers: this.headers})
+        return this.http.post('http://localhost:5000/api/login',body.toString(),{headers: this.headers})
             .map((response: Response) => {
                 let validCredentials: boolean = false;
                 // login successful if there's a jwt token in the response
