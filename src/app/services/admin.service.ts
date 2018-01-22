@@ -4,7 +4,6 @@ import { User } from '../models/user';
 
 @Injectable()
 export class AdminService {
-  base_url: "http://localhost:5000";
   
   constructor(private http: Http) { }
   
