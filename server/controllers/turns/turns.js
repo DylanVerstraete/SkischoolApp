@@ -16,4 +16,4 @@ function edit (id, minutes) {
   })
 }
 
-module.export = { edit }
+module.exports = { edit }

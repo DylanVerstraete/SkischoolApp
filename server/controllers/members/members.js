@@ -44,4 +44,4 @@ function deleteMember (email) {
       })
 }
 
-module.export = { addPendingMember, addMember, deleteMember }
+module.exports = { addPendingMember, addMember, deleteMember }

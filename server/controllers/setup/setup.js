@@ -13,10 +13,9 @@ function createAdminUser () {
     role: 'admin',
     totalskiturns: 0
   })
-  newUser.save()
+  
   newMember.save()
-
-  return newUser
+  return newUser.save()
 }
 
 module.exports = { createAdminUser }
