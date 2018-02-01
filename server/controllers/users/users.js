@@ -29,6 +29,8 @@ function edit (email, details) {
     path: 'skicards',
     model: 'SkiCard'
   }).exec(function (user) {
+    user = details
+    /*
     user.firstname = details.firstname
     user.lastname = details.body.lastname
     user.address = details.address
@@ -36,6 +38,7 @@ function edit (email, details) {
     user.addresspostalcode = details.addresspostalcode
     user.addresscity = details.addresscity
     user.telephonenumber = details.telephonenumber
+    */
     user.save()
   })
 }
