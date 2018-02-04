@@ -1,4 +1,4 @@
-const Turn = require('../../app/models/turn')
+const Turn = require('../app/models/turn')
 
 function edit (id, minutes) {
   Turn.findOne({

@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt');
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const bcrypt = require('bcrypt')
 
-var UserSchema = new Schema({
+const UserSchema = new Schema({
     email: {
         type: String,
         required: true
@@ -39,16 +39,16 @@ var UserSchema = new Schema({
         type: String,
         required: false
     },
-    skicards: [{type: Schema.ObjectId, ref: "SkiCard"}],
+    skicards: [{type: Schema.ObjectId, ref: 'SkiCard'}],
     totalskiturns: {
         type: Number,
         required: false
     },
-    member: {type: Schema.ObjectId, ref:"Member"},
+    member: {type: Schema.ObjectId, ref: 'Member'},
     role:{
         type: String,
     }
-});
+})
 
 UserSchema.pre('save', function (next) {
     var user = this;
@@ -73,10 +73,10 @@ UserSchema.pre('save', function (next) {
 UserSchema.methods.comparePassword = function (passw, cb) {
     bcrypt.compare(passw, this.password, function (err, isMatch) {
         if (err) {
-            return cb(err);
+            return cb(err)
         }
-        cb(null, isMatch);
-    });
-};
+        cb(null, isMatch)
+    })
+}
 
-module.exports = mongoose.model('Users', UserSchema);
+module.exports = mongoose.model('Users', UserSchema)

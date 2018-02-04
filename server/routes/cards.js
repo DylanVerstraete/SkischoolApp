@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const cards = require('../../controllers/cards/cards')
+const cards = require('../controllers/cards')
 var passport = require('passport')
 
 router.get('/requestCard', passport.authenticate('jwt', { session: false }), function (req, res, next) {

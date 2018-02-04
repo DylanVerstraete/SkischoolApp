@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const turns = require('../../controllers/turns/turns')
+const turns = require('../controllers/turns')
 var passport = require('passport')
 
 router.post('/editTurn', passport.authenticate('jwt', { session: false }), function (req, res, next) {

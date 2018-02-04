@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const setup = require('../../controllers/setup/setup')
+const setup = require('../controllers/setup')
 
 /* create sample user */
 router.get('/', function (req, res, next) {

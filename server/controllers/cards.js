@@ -1,6 +1,6 @@
-var Users = require('../../app/models/user.js')
-const Turn = require('../../app/models/turn')
-const SkiCard = require('../../app/models/skicard')
+var Users = require('../app/models/user.js')
+const Turn = require('../app/models/turn')
+const SkiCard = require('../app/models/skicard')
 
 function requestCard (id) {
   return Users.findOne({_id: id}).populate({

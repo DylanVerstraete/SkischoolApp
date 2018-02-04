@@ -1,4 +1,4 @@
-var Users = require('../../app/models/user.js')
+var Users = require('../app/models/user.js')
 
 function all () {
   return Users.find({}).populate({

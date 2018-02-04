@@ -59,34 +59,25 @@ function handleError (res, reason, message, code) {
   res.status(code || 500).json({'error': message})
 };
 
-app.use('/api/users', require('./server/routes/users/users'))
-app.use('/api/cards', require('./server/routes/cards/cards'))
-app.use('/api/setup', require('./server/routes/setup/setup'))
-app.use('/api/turns', require('./server/routes/turns/turns'))
+app.use('/api/users', require('./server/routes/users'))
+app.use('/api/cards', require('./server/routes/cards'))
+app.use('/api/setup', require('./server/routes/setup'))
+app.use('/api/members', require('./server/routes/member'))
+app.use('/api/turns', require('./server/routes/turns'))
 
 app.post('/api/signup', function (req, res, next) {
   if (!req.body.email || !req.body.password) {
     next(handleError(res, 'No email in body', 'Password or Email not valid', 400))
   } else {
-    var newMember = new Member({
-      isMember: false,
-      pending: false
-    })
     // create a new user
     var newUser = new Users({
       email: req.body.email,
       password: req.body.password,
       role: 'user',
-      totalskiturns: 0,
-      member: newMember
+      totalskiturns: 0
     })
     // save the user
     newUser.save(function (err) {
-      if (err) {
-        next(handleError(res, 'Email bestaat al', 'Email already exists.'))
-      }
-    })
-    newMember.save(function (err) {
       if (err) {
         next(handleError(res, 'Email bestaat al', 'Email already exists.'))
       }

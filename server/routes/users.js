@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const users = require('../../controllers/users/users')
+const users = require('../controllers/users')
 var passport = require('passport')
 
 router.get('/', passport.authenticate('jwt', { session: false }), function (req, res, next) {
