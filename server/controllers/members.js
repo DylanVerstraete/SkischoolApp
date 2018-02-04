@@ -2,8 +2,9 @@ var Users = require('../app/models/user.js')
 const Member = require('../app/models/member')
 
 function createMember (email) {
-  console.log(email)
   return Users.findOne({ email: email }, function (err, user) {
+    if (err) return err
+
     if (user.member) {
       return user
     }
@@ -11,17 +12,15 @@ function createMember (email) {
     const member = new Member({
       pending: true
     })
-    console.log(err)
-    console.log(user)
     user.member = member
-    // user.markModified('member')
     member.save()
     return user.save()
   })
 }
 
 function verify (id) {
-  return Member.findOne({ _id: id }, function (member) {
+  return Member.findOne({ _id: id }, function (err, member) {
+    if (err) return err
     member.pending = false
     return member.save()
   })
