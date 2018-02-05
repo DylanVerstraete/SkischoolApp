@@ -2,18 +2,18 @@ const router = require('express').Router()
 const cards = require('../controllers/cards')
 var passport = require('passport')
 
-router.get('/requestCard', passport.authenticate('jwt', { session: false }), function (req, res, next) {
+router.post('/', passport.authenticate('jwt', { session: false }), function (req, res, next) {
   const id = req.body.id
-  cards.requestCard(id)
+  cards.addCard(id)
     .then(user => {
       res.json(user)
     })
     .catch(next)
 })
 
-router.post('/addCard/:id', passport.authenticate('jwt', { session: false }), function (req, res, next) {
+router.post('/markPayed/:id', passport.authenticate('jwt', { session: false }), function (req, res, next) {
   const id = req.params.id
-  cards.addCard(id)
+  cards.markAsPayed(id)
     .then(card => {
       res.json(card)
     })

@@ -25,7 +25,7 @@ function get (email) {
 }
 
 function edit (email, details) {
-  Users.findOne({email: email}).populate({
+  return Users.findOne({email: email}).populate({
     path: 'skicards',
     model: 'SkiCard'
   }).exec(function (user) {
