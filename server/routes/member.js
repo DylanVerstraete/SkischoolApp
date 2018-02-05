@@ -14,21 +14,20 @@ router.post('/', passport.authenticate('jwt', { session: false }), function (req
     .catch(next)
 })
 
+router.delete('/:id', passport.authenticate('jwt', { session: false }), function (req, res, next) {
+  const id = req.parmas.id
+  members.deleteMember(id)
+    .then(member => {
+      res.json(member)
+    })
+    .catch(next)
+})
 /*
   Verifies a member
 */
 router.post('/verify/:id', passport.authenticate('jwt', { session: false }), function (req, res, next) {
   const id = req.params.id
   members.verify(id)
-    .then(member => {
-      res.json(member)
-    })
-    .catch(next)
-})
-
-router.delete('/delete/:id', passport.authenticate('jwt', { session: false }), function (req, res, next) {
-  const id = req.parmas.id
-  members.deleteMember(id)
     .then(member => {
       res.json(member)
     })
