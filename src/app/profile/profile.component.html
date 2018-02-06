@@ -33,7 +33,7 @@
       <p>Aantal skikaarten in aanvraag: {{pendingCards.length}}</p>
       <button class="btn btn-info" (click)="buy()">Koop skikaart</button>
     </div>
-    <div *ngIf="!user.member.isMember && !user.member.pending">
+    <div *ngIf="isNoMember">
       <hr class="divider">
       <div class="member">
         <h3>Wordt lid</h3>
@@ -43,11 +43,11 @@
         <button class="btn btn-info" (click)="makeMember()">Wordt lid</button>
       </div>
     </div>
-    <div *ngIf="user.member.pending">
+    <div *ngIf="isPendingMember">
         <hr class="divider">
       <h3>Uw aanvraag is in behandeling</h3>
     </div>
-    <div *ngIf="user.member.isMember && !user.member.pending">
+    <div *ngIf="!isNoMember && !isPendingMember">
       <hr class="divider">
       <div class="member">
         <h3>U bent lid bij ons!</h3>

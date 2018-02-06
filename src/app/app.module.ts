@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CollapseModule } from 'ngx-bootstrap';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './auth/interceptor';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HttpModule } from '@angular/http';
@@ -128,7 +129,12 @@ import { MemberAddComponent } from './profile/member-add/member-add.component';
       { path: "**", component:PageNotFoundComponent},      
     ])
   ],
-  providers: [AuthenticationService, UserService, AuthGuard, AdminAuthGuard, AdminService],
+  providers: [AuthenticationService, UserService, AuthGuard, AdminAuthGuard, AdminService, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent],
   entryComponents: [CardBuyComponent, MemberAddComponent]  
 })

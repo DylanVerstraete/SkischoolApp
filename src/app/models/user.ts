@@ -19,6 +19,7 @@ export class User {
 }
 
 class Member{
+    _id: number;
     pending: boolean;
     isMember: boolean;    
 }

@@ -1,8 +1,7 @@
 const router = require('express').Router()
 const users = require('../controllers/users')
-var passport = require('passport')
 
-router.get('/', passport.authenticate('jwt', { session: false }), function (req, res, next) {
+router.get('/', function (req, res, next) {
   users.all()
     .then(users => {
       res.json(users)
@@ -10,7 +9,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
     .catch(next)
 })
 
-router.get('/:email', passport.authenticate('jwt', { session: false }), function (req, res, next) {
+router.get('/:email', function (req, res, next) {
   users.get(req.params.email)
     .then(user => {
       res.json(user)
@@ -18,7 +17,7 @@ router.get('/:email', passport.authenticate('jwt', { session: false }), function
     })
 })
 
-router.post('/edit/:email', passport.authenticate('jwt', { session: false }), function (req, res, next) {
+router.post('/edit/:email', function (req, res, next) {
   const email = req.params.email
   const user = req.body
   users.edit(email, user)

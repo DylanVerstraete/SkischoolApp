@@ -17,7 +17,7 @@
         </div>
         <div *ngIf="user.member.pending">
           <p>Wil lid worden</p>
-          <button class="btn btn-info" (click)="addMember(user)">Markeer als lid</button>  
+          <button class="btn btn-info" (click)="addMember(user.member._id)">Markeer als lid</button>  
         </div>
         <div *ngIf="!user.member.isMember && !user.member.pending">
           <p>Is geen lid</p>

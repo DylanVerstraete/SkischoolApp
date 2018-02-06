@@ -9,16 +9,13 @@ export class UserService {
 
     constructor(private http: Http) { }
 
-
     getAll() {
         return this.http.get('http://localhost:5000/api/users', this.jwt()).map((response: Response) => response.json());
     }
 
-
     getByEmail(id: number) {
         return this.http.get('http://localhost:5000/api/users' + id, this.jwt()).map((response: Response) => response.json());
     }
-
 
     getCurrentUser() {
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -37,24 +34,20 @@ export class UserService {
         return this.http.delete('http://localhost:5000/api/users' + id, this.jwt()).map((response: Response) => response.json());
     }
 
-    requestSecretRoute() {
-        return this.http.get('http://localhost:5000/api/secret', this.jwt()).map((response: Response) => response.json());
-    }
-
     addSkiCard(user: User) {
-        return this.http.post('http://localhost:5000/api/users/addCard', user, this.jwt()).map((response: Response) => response.json());
+        return this.http.post('http://localhost:5000/api/cards', user.email, this.jwt()).map((response: Response) => response.json());
     }
 
     requestCard(user: User) {
-        return this.http.post('http://localhost:5000/api/users/requestCard', user, this.jwt()).map((response: Response) => response.json());
+        return this.http.post('http://localhost:5000/api/cards', { id: user._id }, this.jwt()).map((response: Response) => response.json());
     }
 
-    makeMember(user: User) {
-        return this.http.post('http://localhost:5000/api/add/pendingMember', user, this.jwt()).map((response: Response) => response.json());
+    addMember(email: any) {
+        return this.http.post('http://localhost:5000/api/members', { email: email }, this.jwt()).map((response: Response) => response.json());
     }
 
-    undoMember(user: User) {
-        return this.http.post('http://localhost:5000/api/delete/member', user, this.jwt()).map((response: Response) => response.json());
+    deleteMember(id: number) {
+        return this.http.delete('http://localhost:5000/api/members/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
     // private helper methods
@@ -66,5 +59,10 @@ export class UserService {
             let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
             return new RequestOptions({ headers: headers });
         }
+    }
+
+    public getJwt() {
+        const { currentUser } = JSON.parse(localStorage.getItem('currentUser'))
+        return currentUser.token
     }
 }

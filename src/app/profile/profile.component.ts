@@ -6,6 +6,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatDialog } from '@angular/material';
 import { CardBuyComponent } from './card-buy/card-buy.component';
 import { MemberAddComponent } from './member-add/member-add.component';
+import { isPending } from 'q';
 
 @Component({
   selector: 'app-profile',
@@ -19,14 +20,14 @@ export class ProfileComponent implements OnInit {
   numberOfTurns: number = 0;
   pendingCards: any = {};
   payedCards: any = {};
+  isPendingMember: boolean
+  isNoMember: boolean = false
 
   @HostBinding('body.background-color')
   bgColor;
 
   constructor(private authenticationService: AuthenticationService, private userService: UserService, public dialog: MatDialog) {
     this.bgColor = "none";
-    //document.getElementById('body').style.background = "none";        
-    
   }
 
   ngOnInit() {
@@ -36,6 +37,15 @@ export class ProfileComponent implements OnInit {
       this.pendingCards = this.user.skicards.filter(e => e.payed == false);
       this.payedCards = this.user.skicards.filter(e => e.payed == true);      
       this.calculateTurns();
+      if(!this.user.member) {
+        this.isNoMember = true
+      }
+
+      if(this.user.member == null) {
+        this.isPendingMember = false
+      } else if (this.user.member.pending) {
+        this.isPendingMember = true
+      }
     });
   }
 
@@ -54,9 +64,7 @@ export class ProfileComponent implements OnInit {
           turns: [],
           payed: false
         }
-        //this.user.skicards.push(skiCard);
         this.userService.requestCard(this.user).subscribe(data => {
-          console.log(data);
           this.user = data;
           this.calculateTurns();
         });
@@ -86,13 +94,15 @@ export class ProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       if(result == "lid"){
-        this.userService.makeMember(this.user).subscribe(data => {console.log(data),this.user = data});        
+        this.userService.addMember(this.user.email).subscribe(
+          
+        );        
       } 
     });
   }
 
   undoMember(){
-    this.userService.undoMember(this.user).subscribe(data => this.user = data);
+    this.userService.deleteMember(this.user.member._id).subscribe(data => this.user = data);
   }
 
 }

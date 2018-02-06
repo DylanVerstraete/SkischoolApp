@@ -59,6 +59,18 @@ function handleError (res, reason, message, code) {
   res.status(code || 500).json({'error': message})
 };
 
+/*
+app.use([
+  '/api/users',
+  '/api/cards',
+  '/api/setup',
+  '/api/members',
+  '/api/turns'
+],
+  passport.authenticate('jwt', { session: false })
+)
+*/
+
 app.use('/api/users', require('./server/routes/users'))
 app.use('/api/cards', require('./server/routes/cards'))
 app.use('/api/setup', require('./server/routes/setup'))

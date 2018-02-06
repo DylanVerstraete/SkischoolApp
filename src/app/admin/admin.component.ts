@@ -27,14 +27,13 @@ export class AdminComponent implements OnInit {
   }
 
   addCard(id: number){
-    this.adminService.addCardToUserWithId(id).subscribe(data => {
-      console.log(data);
+    this.adminService.markPayed(id).subscribe(data => {
       this.refresh();
     });
   }
 
-  addMember(user: User){
-    this.adminService.addMember(user).subscribe(data => {
+  addMember(id: number){
+    this.adminService.addMember(id).subscribe(data => {
       console.log(data);
       this.refresh();
     });
@@ -62,7 +61,7 @@ export class AdminComponent implements OnInit {
     //console.log(restingMinutes);
     turn[0].minutes = restingMinutes;
     console.log(turn[0]);
-    this.adminService.editTurn(turn[0]).subscribe(data => console.log(data));
+    this.adminService.editTurn(turn[0]._id).subscribe(data => console.log(data));
     
   }
 }

@@ -2,24 +2,26 @@ var Users = require('../app/models/user.js')
 const Member = require('../app/models/member')
 
 function createMember (email) {
-  return Users.findOne({ email: email }, function (err, user) {
-    if (err) return err
+  return Users.findOne({ email: email })
+    .populate({ path: 'member', model: 'Member' })
+    .exec(function (err, user) {
+      if (err) return err
 
-    if (user.member) {
-      return user
-    }
+      if (user.member != null) {
+        return user
+      }
 
-    const member = new Member({
-      pending: true
+      const member = new Member({
+        pending: true
+      })
+      user.member = member
+      member.save()
+      return user.save()
     })
-    user.member = member
-    member.save()
-    return user.save()
-  })
 }
 
 function verify (id) {
-  return Member.findOne({ _id: id }, function (err, member) {
+  return Member.findOne({ _id: id }).populate({ path: 'member', model: 'Member' }).exec(function (err, member) {
     if (err) return err
     member.pending = false
     return member.save()

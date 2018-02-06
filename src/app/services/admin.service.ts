@@ -8,19 +8,19 @@ export class AdminService {
   constructor(private http: Http) { }
   
     getAllUser() {
-      return this.http.get('http://localhost:5000/api/users/' , this.jwt()).map((response: Response) => response.json());
+      return this.http.get('http://localhost:5000/api/users/', this.jwt()).map((response: Response) => response.json());
     }
 
-    addCardToUserWithId(id: number){
-      return this.http.post('http://localhost:5000/api/users/addCard/' + id , this.jwt()).map((response: Response) => response.json());
+    markPayed(id: number){
+      return this.http.post('http://localhost:5000/api/cards/markPayed/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
-    addMember(user: User){
-      return this.http.post('http://localhost:5000/api/add/member/', user , this.jwt()).map((response: Response) => response.json());
+    addMember(id: number){
+      return this.http.post('http://localhost:5000/api/members/verify/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
-    editTurn(turn: any){
-      return this.http.post('http://localhost:5000/api/editTurn/' , turn , this.jwt()).map((response: Response) => response.json());
+    editTurn(id: number){
+      return this.http.post('http://localhost:5000/api/editTurn/' + id, this.jwt()).map((response: Response) => response.json());
     }
     // private helper methods
   
