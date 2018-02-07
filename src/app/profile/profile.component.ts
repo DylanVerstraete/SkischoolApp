@@ -6,7 +6,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatDialog } from '@angular/material';
 import { CardBuyComponent } from './card-buy/card-buy.component';
 import { MemberAddComponent } from './member-add/member-add.component';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager, ToastOptions } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -65,8 +65,8 @@ export class ProfileComponent implements OnInit {
           turns: [],
           payed: false
         }
-        this.toastr.success('You are awesome!', 'Success!');
         this.userService.requestCard(this.user).subscribe(data => {
+          this.toastr.success('Skikaart succesvol aangevraagd!', 'Success!');
           this.user = data;
           this.calculateTurns();
         });
@@ -95,11 +95,10 @@ export class ProfileComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-      this.toastr.success('You are awesome!', 'Success!');
       if(result == "lid"){
-        this.userService.addMember(this.user.email).subscribe(
-          
-        );        
+        this.userService.addMember(this.user.email).subscribe(data => {
+          this.toastr.success('Lidmaatschap succesvol aangevraagd!', 'Success!');
+        }); 
       } 
     });
   }
