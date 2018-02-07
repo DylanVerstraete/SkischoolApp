@@ -18,9 +18,7 @@ export class UserDetailComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.userSerivce.getByEmail(params['email']).subscribe(data => {
         this.detailUser = data
-        console.log(data)
       })
-       // In a real app: dispatch action to load the details here.
     });
   }
 }

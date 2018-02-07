@@ -1,7 +1,6 @@
-<div *ngIf='detailUser'>
+<div class='left' *ngIf='detailUser'>
   <p>email: {{detailUser.email}}</p>
-  <p>voornaam: {{detailUser.firstName}}</p>
-  <p>achternaam: {{detailUser.lastName}}</p>
+  <p>naam: {{detailUser.firstName}} {{detailUser.lastName}}</p>
   <p>adres: {{detailUser.address}} {{detailUser.addressnumber}} </p>
   <p>stad: {{detailUser.adresscity}} {{detailUser.postalcode}}</p>
   <p>aantal skikaarten: {{detailUser.skicards.length}}</p>

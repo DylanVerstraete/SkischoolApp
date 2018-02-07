@@ -25,12 +25,12 @@ function get (email) {
 }
 
 function edit (email, details) {
-  return Users.findOne({email: email}).populate({
+  return Users.findOne({ email: email }).populate({
     path: 'skicards',
     model: 'SkiCard'
-  }).exec(function (user) {
-    user = details
-    /*
+  }).exec(function (err, user) {
+    if (err) return err
+    console.log(user)
     user.firstname = details.firstname
     user.lastname = details.body.lastname
     user.address = details.address
@@ -38,8 +38,8 @@ function edit (email, details) {
     user.addresspostalcode = details.addresspostalcode
     user.addresscity = details.addresscity
     user.telephonenumber = details.telephonenumber
-    */
-    user.save()
+
+    return user.save()
   })
 }
 
