@@ -25,14 +25,9 @@ function get (email) {
 }
 
 function edit (email, details) {
-  return Users.findOne({ email: email }).populate({
-    path: 'skicards',
-    model: 'SkiCard'
-  }).exec(function (err, user) {
+  return Users.findOne({ email: email }, function (err, user) {
     if (err) return err
     console.log(user)
-    user.firstname = details.firstname
-    user.lastname = details.body.lastname
     user.address = details.address
     user.addressnumber = details.addressnumber
     user.addresspostalcode = details.addresspostalcode
