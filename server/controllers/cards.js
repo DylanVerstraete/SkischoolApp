@@ -8,7 +8,7 @@ function addCard (id) {
       path: 'skicards',
       model: 'SkiCard'}).exec(function (err, user) {
         if (err) return err
-        
+
         let turns = []
 
         for (var i = 0; i < 10; i++) {

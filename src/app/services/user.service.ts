@@ -13,8 +13,8 @@ export class UserService {
         return this.http.get('http://localhost:5000/api/users', this.jwt()).map((response: Response) => response.json());
     }
 
-    getByEmail(id: number) {
-        return this.http.get('http://localhost:5000/api/users' + id, this.jwt()).map((response: Response) => response.json());
+    getByEmail(email: any) {
+        return this.http.get('http://localhost:5000/api/users/' + email, this.jwt()).map((response: Response) => response.json());
     }
 
     getCurrentUser() {

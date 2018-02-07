@@ -11,7 +11,6 @@ const morgan = require('morgan')
 const passport = require('passport')
 
 var config = require('./server/app/config/config.js')
-var Member = require('./server/app/models/member.js')
 var Users = require('./server/app/models/user.js')
 
 const app = express()

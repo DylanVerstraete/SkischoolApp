@@ -58,7 +58,7 @@ import {
 } from '@angular/material';
 import { CardBuyComponent } from './profile/card-buy/card-buy.component';
 import { MemberAddComponent } from './profile/member-add/member-add.component';
-
+import { UserDetailComponent } from './admin/user-detail/user-detail.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +74,7 @@ import { MemberAddComponent } from './profile/member-add/member-add.component';
     AdminComponent,
     CardBuyComponent,
     MemberAddComponent,
+    UserDetailComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -124,6 +125,7 @@ import { MemberAddComponent } from './profile/member-add/member-add.component';
       { path: "profiel", component:ProfileComponent, canActivate: [AuthGuard]},
       { path: "profiel/edit", component:ProfileEditComponent, canActivate: [AuthGuard]},
       { path: "admin", component:AdminComponent, canActivate: [AdminAuthGuard]},
+      { path: "admin/userDetail/:email", component:UserDetailComponent, canActivate: [AdminAuthGuard]},
       { path: "kampen", component:CampsComponent},
       { path: "", component:HomeComponent},
       { path: "**", component:PageNotFoundComponent},      

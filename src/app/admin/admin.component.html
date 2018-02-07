@@ -6,21 +6,21 @@
 
     <ng-container matColumnDef="email">
       <mat-header-cell *matHeaderCellDef> Email adres </mat-header-cell>
-      <mat-cell *matCellDef="let user"> {{user.email}} </mat-cell>
+      <mat-cell *matCellDef="let user"> {{user.email}} <i class="material-icons" (click)='detail(user.email)'>zoom_in</i></mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="memberadd">
       <mat-header-cell *matHeaderCellDef>Lid status</mat-header-cell>
       <mat-cell *matCellDef="let user">
         <div *ngIf="!user.member.pending">
-          <p>Is lid</p>
+          <mat-cell> Is lid </mat-cell>
         </div>
         <div *ngIf="user.member.pending">
-          <p>Wil lid worden</p>
+          <mat-cell> Wil lid worden </mat-cell>
           <button class="btn btn-info" (click)="addMember(user.member._id)">Markeer als lid</button>  
         </div>
         <div *ngIf="!user.member">
-          <p>Is geen lid</p>
+          <mat-cell> Is geen lid </mat-cell>
         </div>
       </mat-cell>
     </ng-container>
@@ -29,10 +29,10 @@
       <mat-header-cell *matHeaderCellDef> Aantal skikaarten </mat-header-cell>
       <mat-cell *matCellDef="let user"> 
         <div *ngIf="user.skicards.length == 0">
-          Geen skikaarten
+          <mat-cell> Geen skikaarten </mat-cell>
         </div>
         <div *ngIf="user.skicards.length > 0">
-          {{user.skicards.length}}
+          <mat-cell> {{user.skicards.length}} </mat-cell>
         </div>
       </mat-cell>
     </ng-container>
@@ -46,6 +46,9 @@
             <button class="btn btn-info" (click)="addCard(card._id)">Heeft betaald</button>
           </div>
           <div ></div>
+        </div>
+        <div *ngIf='user.skicards'>
+          <mat-cell> Geen kaarten in aanvraag </mat-cell>
         </div>
       </mat-cell>
     </ng-container>

@@ -100,9 +100,4 @@ export class ProfileComponent implements OnInit {
       } 
     });
   }
-
-  undoMember(){
-    this.userService.deleteMember(this.user.member._id).subscribe(data => this.user = data);
-  }
-
 }
