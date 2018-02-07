@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewEncapsulation, ViewContainerRef } from '@angular/core';
 import { User } from '../models/user';
 import { AuthenticationService } from '../services/authentication.service';
 import { UserService } from '../services/user.service';
@@ -6,7 +6,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { MatDialog } from '@angular/material';
 import { CardBuyComponent } from './card-buy/card-buy.component';
 import { MemberAddComponent } from './member-add/member-add.component';
-import { isPending } from 'q';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -26,8 +26,9 @@ export class ProfileComponent implements OnInit {
   @HostBinding('body.background-color')
   bgColor;
 
-  constructor(private authenticationService: AuthenticationService, private userService: UserService, public dialog: MatDialog) {
+  constructor(private toastr: ToastsManager, vcr: ViewContainerRef, private authenticationService: AuthenticationService, private userService: UserService, public dialog: MatDialog) {
     this.bgColor = "none";
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -64,6 +65,7 @@ export class ProfileComponent implements OnInit {
           turns: [],
           payed: false
         }
+        this.toastr.success('You are awesome!', 'Success!');
         this.userService.requestCard(this.user).subscribe(data => {
           this.user = data;
           this.calculateTurns();
@@ -93,6 +95,7 @@ export class ProfileComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
+      this.toastr.success('You are awesome!', 'Success!');
       if(result == "lid"){
         this.userService.addMember(this.user.email).subscribe(
           

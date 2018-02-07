@@ -23,6 +23,11 @@ import { AdminComponent } from './admin/admin.component';
 import { AdminAuthGuard } from './auth/admin-auth.guard';
 import { AdminService } from './services/admin.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastModule, ToastOptions} from 'ng2-toastr/ng2-toastr';
+import { CustomOption } from './custom-toast-options';
+import { CardBuyComponent } from './profile/card-buy/card-buy.component';
+import { MemberAddComponent } from './profile/member-add/member-add.component';
+import { UserDetailComponent } from './admin/user-detail/user-detail.component';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -56,9 +61,6 @@ import {
   MatTooltipModule,
   MatStepperModule,
 } from '@angular/material';
-import { CardBuyComponent } from './profile/card-buy/card-buy.component';
-import { MemberAddComponent } from './profile/member-add/member-add.component';
-import { UserDetailComponent } from './admin/user-detail/user-detail.component';
 
 @NgModule({
   declarations: [
@@ -118,6 +120,7 @@ import { UserDetailComponent } from './admin/user-detail/user-detail.component';
     MatToolbarModule,
     MatTooltipModule,
     MatStepperModule,
+    ToastModule.forRoot(),
     RouterModule.forRoot([  
       { path: "login", component:LoginComponent },
       { path: "register", component:RegisterComponent },
@@ -132,11 +135,9 @@ import { UserDetailComponent } from './admin/user-detail/user-detail.component';
     ])
   ],
   providers: [AuthenticationService, UserService, AuthGuard, AdminAuthGuard, AdminService, 
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }],
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: ToastOptions, useClass: CustomOption }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [CardBuyComponent, MemberAddComponent]  
 })

@@ -13,8 +13,8 @@ router.get('/:email', function (req, res, next) {
   users.get(req.params.email)
     .then(user => {
       res.json(user)
-      .catch(next)
     })
+    .catch(next)
 })
 
 router.post('/edit/:email', function (req, res, next) {
@@ -23,8 +23,8 @@ router.post('/edit/:email', function (req, res, next) {
   users.edit(email, user)
     .then(user => {
       res.json(user)
-      .catch(next)
     })
+    .catch(next)
 })
 
 module.exports = router

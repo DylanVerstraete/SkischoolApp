@@ -12,13 +12,16 @@
     <ng-container matColumnDef="memberadd">
       <mat-header-cell *matHeaderCellDef>Lid status</mat-header-cell>
       <mat-cell *matCellDef="let user">
-        <div *ngIf="!user.member.pending">
-          <mat-cell> Is lid </mat-cell>
+        <div *ngIf='user.member'>
+            <div *ngIf="!user.member.pending">
+                <mat-cell> Is lid </mat-cell>
+              </div>
+              <div *ngIf="user.member.pending">
+                <mat-cell> Wil lid worden </mat-cell>
+                <button class="btn btn-info" (click)="addMember(user.member._id)">Markeer als lid</button>  
+              </div>
         </div>
-        <div *ngIf="user.member.pending">
-          <mat-cell> Wil lid worden </mat-cell>
-          <button class="btn btn-info" (click)="addMember(user.member._id)">Markeer als lid</button>  
-        </div>
+        
         <div *ngIf="!user.member">
           <mat-cell> Is geen lid </mat-cell>
         </div>

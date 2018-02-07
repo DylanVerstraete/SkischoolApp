@@ -5,5 +5,5 @@
   <p>stad: {{detailUser.adresscity}} {{detailUser.postalcode}}</p>
   <p>aantal skikaarten: {{detailUser.skicards.length}}</p>
   <p>aantal skibeurten: {{detailUser.totalskiturns}}</p>
-  <p>lidstatus: {{detailUser.member.pending}}</p>
+  <p *ngIf='detailUser.member'>lidstatus: {{detailUser.member.pending}}</p>
 </div>
