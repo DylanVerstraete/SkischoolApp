@@ -2,10 +2,10 @@
 
 <h3>Gebruikersinformatie</h3>
 <div class="example-container mat-elevation-z8">
-  <mat-table #table [dataSource]="dataSource">
+  <mat-table #table [dataSource]="dataSource" matSort>
 
     <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef> Email adres </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Email adres </mat-header-cell>
       <mat-cell *matCellDef="let user"> {{user.email}} <i class="material-icons" (click)='detail(user.email)'>zoom_in</i></mat-cell>
     </ng-container>
 
@@ -55,24 +55,6 @@
         </div>
       </mat-cell>
     </ng-container>
-
-    <!-- 
-    <ng-container matColumnDef="skiturns">
-      <mat-header-cell *matHeaderCellDef> Aantal skibeurten </mat-header-cell>
-      <mat-cell *matCellDef="let user">
-        {{user.totalskiturns}}
-      </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="markturnasused">
-      <mat-header-cell *matHeaderCellDef>Trek beurt af</mat-header-cell>
-      <mat-cell *matCellDef="let user">
-        <input type="number" placeholder="aantal minuten geskied" value="minutes" #minutes>
-        <button class="btn btn-warning" (click)="decreaseTurn(minutes.value, user._id)">Trek beurt af</button>
-      </mat-cell>
-    </ng-container>
-    -->
-    
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
