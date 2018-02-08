@@ -27,7 +27,7 @@ function get (email) {
 function edit (email, details) {
   return Users.findOne({ email: email }, function (err, user) {
     if (err) return err
-    console.log(user)
+
     user.address = details.address
     user.addressnumber = details.addressnumber
     user.addresspostalcode = details.addresspostalcode
