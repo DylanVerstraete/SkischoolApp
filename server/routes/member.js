@@ -1,10 +1,11 @@
 const router = require('express').Router()
 const members = require('../controllers/members')
+const passport = require('passport')
 
 /*
   Makes a user member
 */
-router.post('/', function (req, res, next) {
+router.post('/', passport.authenticate('jwt', { session: false }), function (req, res, next) {
   const email = req.body.email
   members.createMember(email)
     .then(user => {
@@ -13,7 +14,7 @@ router.post('/', function (req, res, next) {
     .catch(next)
 })
 
-router.delete('/:id', function (req, res, next) {
+router.delete('/:id', passport.authenticate('jwt', { session: false }), function (req, res, next) {
   const id = req.parmas.id
   members.deleteMember(id)
     .then(member => {
@@ -24,7 +25,7 @@ router.delete('/:id', function (req, res, next) {
 /*
   Verifies a member
 */
-router.post('/verify/:id', function (req, res, next) {
+router.post('/verify/:id', passport.authenticate('jwt', { session: false }), function (req, res, next) {
   const id = req.params.id
   members.verify(id)
     .then(member => {
