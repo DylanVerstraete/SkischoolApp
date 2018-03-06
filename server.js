@@ -11,6 +11,7 @@ const passport = require('passport')
 
 var config = require('./server/app/config/config.js')
 var Users = require('./server/app/models/user.js')
+const Logs = require('./server/controllers/logs.js')
 
 const app = express()
 app.use(morgan('dev'))
@@ -77,6 +78,7 @@ app.use('/api/cards', require('./server/routes/cards'))
 app.use('/api/setup', require('./server/routes/setup'))
 app.use('/api/members', require('./server/routes/member'))
 app.use('/api/turns', require('./server/routes/turns'))
+app.use('/api/logs', require('./server/routes/logs'))
 
 app.post('/api/signup', function (req, res, next) {
   if (!req.body.email || !req.body.password) {
@@ -95,6 +97,8 @@ app.post('/api/signup', function (req, res, next) {
         next(handleError(res, 'Email bestaat al', 'Email already exists.'))
       }
     })
+    const info = `${req.body.email} heeft zich geregistreerd `
+    Logs.addLogToUser(newUser._id, info)
     res.json(newUser)
   }
 })

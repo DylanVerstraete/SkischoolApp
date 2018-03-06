@@ -15,7 +15,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), function (req
 })
 
 router.delete('/:id', passport.authenticate('jwt', { session: false }), function (req, res, next) {
-  const id = req.parmas.id
+  const id = req.params.id
   members.deleteMember(id)
     .then(member => {
       res.json(member)
