@@ -19,11 +19,19 @@ app.use(bodyParser.json())
 app.use(passport.initialize())
 
 // connect to database
-mongoose.connect(config.database, function (err) {
+mongoose.connect(config.database, {useMongoClient: true}, function (err, db) {
   if (err) {
     console.log(err)
     process.exit(1)
   }
+
+  // mongodb error
+  db.on('error', console.error.bind(console, 'connection error:'))
+
+// mongodb connection open
+  db.once('open', () => {
+    console.log(`Connected to Mongo at: ${new Date()}`)
+  })
   // Initialize the app.
   const server = app.listen(process.env.PORT || 5000, function () {
     const port = server.address().port
