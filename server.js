@@ -4,7 +4,6 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
-const mongodb = require('mongodb')
 const mongoose = require('mongoose')
 const jwt = require('jwt-simple')
 const morgan = require('morgan')
@@ -20,7 +19,17 @@ app.use(bodyParser.json())
 app.use(passport.initialize())
 
 // connect to database
-mongoose.connect(config.database)
+mongoose.connect(config.database, function (err) {
+  if (err) {
+    console.log(err)
+    process.exit(1)
+  }
+  // Initialize the app.
+  const server = app.listen(process.env.PORT || 5000, function () {
+    const port = server.address().port
+    console.log('App now running on port', port)
+  })
+})
 
 // pass passport for configuration
 require('./server/app/config/passport')(passport)
@@ -36,21 +45,6 @@ app.use(function (req, res, next) {
 // Create link to Angular build directory
 var distDir = __dirname + '/dist/'
 app.use(express.static(distDir))
-
-// Connect to the database before starting the application server.
-mongodb.MongoClient.connect('mongodb://localhost:27017/skischool', function (err, database) {
-  if (err) {
-    console.log(err)
-    process.exit(1)
-  }
-  console.log('Database connection ready')
-
-  // Initialize the app.
-  var server = app.listen(process.env.PORT || 5000, function () {
-    var port = server.address().port
-    console.log('App now running on port', port)
-  })
-})
 
 // Generic error handler used by all endpoints.
 function handleError (res, reason, message, code) {
