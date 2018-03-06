@@ -28,14 +28,14 @@ mongoose.connect(config.database, {useMongoClient: true}, function (err, db) {
   // mongodb error
   db.on('error', console.error.bind(console, 'connection error:'))
 
-// mongodb connection open
+  // mongodb connection open
   db.once('open', () => {
     console.log(`Connected to Mongo at: ${new Date()}`)
-  })
-  // Initialize the app.
-  const server = app.listen(process.env.PORT || 5000, function () {
-    const port = server.address().port
-    console.log('App now running on port', port)
+    // Initialize the app.
+    const server = app.listen(process.env.PORT || 5000, function () {
+      const port = server.address().port
+      console.log(`\nApp now running on port ${port}\n`)
+    })
   })
 })
 
