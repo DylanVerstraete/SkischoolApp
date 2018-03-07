@@ -1,9 +1,33 @@
 <div class='left' *ngIf='detailUser'>
-  <p>email: {{detailUser.email}}</p>
-  <p>naam: {{detailUser.firstName}} {{detailUser.lastName}}</p>
-  <p>adres: {{detailUser.address}} {{detailUser.addressnumber}} </p>
-  <p>stad: {{detailUser.adresscity}} {{detailUser.postalcode}}</p>
-  <p>aantal skikaarten: {{detailUser.skicards.length}}</p>
-  <p>aantal skibeurten: {{detailUser.totalskiturns}}</p>
-  <p *ngIf='detailUser.member'>lidstatus: {{detailUser.member.pending}}</p>
+  <h3>Persoonlijke info</h3>
+  <mat-list>
+      <mat-list-item>email: {{detailUser.email}}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>naam: {{detailUser.firstName}} {{detailUser.lastName}}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>adres: {{detailUser.address}} {{detailUser.addressnumber}}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>stad: {{detailUser.adresscity}} {{detailUser.postalcode}}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>aantal skikaarten: {{detailUser.skicards.length}}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>aantal skibeurten: {{detailUser.totalskiturns}}</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item *ngIf='detailUser.member'>lidstatus: {{detailUser.member.pending}}</mat-list-item>
+      <mat-divider></mat-divider>
+  </mat-list>
+  <br>
+<div *ngIf='detailUser.skicards.length > 0'>
+    <h3>Skikaarten</h3>
+    <mat-list>
+        <mat-list-item *ngFor='let card of detailUser.skicards'>Aantal beurten nog op skiaart: {{card.numberOfTurns}}</mat-list-item>
+    </mat-list>
+    <mat-divider></mat-divider>
+</div>
+<br>
+<div>
+  <h3>Logs</h3>
+  <mat-list>
+      <mat-list-item *ngFor='let log of logs'>{{log.date | date: 'dd/MM/yyyy'}} {{log.info}}</mat-list-item>
+  </mat-list>
 </div>

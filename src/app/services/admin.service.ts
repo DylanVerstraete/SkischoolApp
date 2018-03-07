@@ -22,6 +22,10 @@ export class AdminService {
     editTurn(id: number){
       return this.http.post('http://localhost:5000/api/editTurn/' + id, this.jwt()).map((response: Response) => response.json());
     }
+
+    getUserLogs(id: number){
+      return this.http.get('http://localhost:5000/api/logs/' + id, this.jwt()).map((response: Response) => response.json())
+    }
     // private helper methods
   
     private jwt() {
